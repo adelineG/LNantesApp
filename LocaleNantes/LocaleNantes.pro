@@ -9,7 +9,7 @@ SOURCES	    =   mainwindow.cpp \
 		arrow.cpp \
 		diagramtextitem.cpp \
 		diagramscene.cpp
-RESOURCES   =	LocateNantes.qrc
+RESOURCES   =	diagramscene.qrc
 
 
 # install

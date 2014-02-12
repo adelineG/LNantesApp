@@ -64,9 +64,10 @@ MainWindow::MainWindow()
     createToolbars();
 
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(toolBox);
     view = new QGraphicsView(scene);
     layout->addWidget(view);
+
+    layout->addWidget(toolBox);
 
     QWidget *widget = new QWidget;
     widget->setLayout(layout);
@@ -326,32 +327,42 @@ void MainWindow::createToolBox()
     connect(buttonGroup, SIGNAL(buttonClicked(int)),this, SLOT(buttonGroupClicked(int)));
 
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Batiment"), DiagramItem::Batiment), 0, 0);
-    //layout->addWidget(createCellWidget(tr("Couloir"), DiagramItem::Couloir),1, 0);
+   // layout->addWidget(createCellWidget(tr("Batiment"), DiagramItem::Batiment), 0, 0);
+   // layout->addWidget(createCellWidget(tr("Couloir"), DiagramItem::Couloir),1, 0);
     //layout->addWidget(createCellWidget(tr("Porte"),DiagramItem::Porte), 2, 0);
 //! [21]
-
+    /******************************* bouton batiment *******************************************************/
+    QToolButton *batimentButton = new QToolButton;
+    batimentButton->setCheckable(true);
+    buttonGroup->addButton(batimentButton, InsertTextButton);
+    batimentButton->setIcon(QIcon(QPixmap(":/images/rectangle.png") .scaled(60, 60)));
+    batimentButton->setIconSize(QSize(50, 50));
+    QGridLayout *batimentLayout = new QGridLayout;
+    batimentLayout->addWidget(batimentButton, 0, 0, Qt::AlignHCenter);
+    batimentLayout->addWidget(new QLabel(tr("Batiment")), 1, 0, Qt::AlignCenter);
+    QWidget *batimentWidget = new QWidget;
+    batimentWidget->setLayout(batimentLayout);
+    layout->addWidget(batimentWidget, 0, 0);
+   /******************************* bouton batiment *******************************************************/
+    /******************************* bouton Couloir *******************************************************/
+    QToolButton *couloirButton = new QToolButton;
+    couloirButton->setCheckable(true);
+    buttonGroup->addButton(couloirButton, InsertTextButton);
+    couloirButton->setIcon(QIcon(QPixmap(":/images/couloir.png") .scaled(60, 60)));
+    couloirButton->setIconSize(QSize(50, 50));
+    QGridLayout *couloirLayout = new QGridLayout;
+    couloirLayout->addWidget(couloirButton, 0, 0, Qt::AlignHCenter);
+    couloirLayout->addWidget(new QLabel(tr("Couloir")), 1, 0, Qt::AlignCenter);
+    QWidget *couloirWidget = new QWidget;
+    couloirWidget->setLayout(couloirLayout);
+    layout->addWidget(couloirWidget, 1, 0);
+   /******************************* bouton Couloir *******************************************************/
 
     /******************************* bouton porte *******************************************************/
     QToolButton *porteButton = new QToolButton;
     porteButton->setCheckable(true);
     buttonGroup->addButton(porteButton, InsertTextButton);
-    porteButton->setIcon(QIcon(QPixmap(":/images/couloir.png") .scaled(50, 50)));
-    porteButton->setIconSize(QSize(50, 50));
-    QGridLayout *porteLayout = new QGridLayout;
-    porteLayout->addWidget(porteButton, 0, 0, Qt::AlignHCenter);
-    porteLayout->addWidget(new QLabel(tr("Couloir")), 1, 0, Qt::AlignCenter);
-    QWidget *porteWidget = new QWidget;
-    porteWidget->setLayout(porteLayout);
-    layout->addWidget(porteWidget, 1, 0);
-   /******************************* bouton porte *******************************************************/
-
-
-    /******************************* bouton porte *******************************************************/
-    QToolButton *porteButton = new QToolButton;
-    porteButton->setCheckable(true);
-    buttonGroup->addButton(porteButton, InsertTextButton);
-    porteButton->setIcon(QIcon(QPixmap(":/images/Sortie.png") .scaled(50, 50)));
+    porteButton->setIcon(QIcon(QPixmap(":/images/porte.png") .scaled(60, 60)));
     porteButton->setIconSize(QSize(50, 50));
     QGridLayout *porteLayout = new QGridLayout;
     porteLayout->addWidget(porteButton, 0, 0, Qt::AlignHCenter);
@@ -362,19 +373,19 @@ void MainWindow::createToolBox()
    /******************************* bouton porte *******************************************************/
 
 
-    /******************************* bouton text *******************************************************/
+    /******************************* bouton Cloison *******************************************************/
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
     buttonGroup->addButton(textButton, InsertTextButton);
-    textButton->setIcon(QIcon(QPixmap(":/images/textpointer.png") .scaled(50, 50)));
+    textButton->setIcon(QIcon(QPixmap(":/images/Separation.png") .scaled(60, 60)));
     textButton->setIconSize(QSize(50, 50));
     QGridLayout *textLayout = new QGridLayout;
     textLayout->addWidget(textButton, 0, 0, Qt::AlignHCenter);
-    textLayout->addWidget(new QLabel(tr("Text")), 1, 0, Qt::AlignCenter);
+    textLayout->addWidget(new QLabel(tr("Cloison")), 1, 0, Qt::AlignCenter);
     QWidget *textWidget = new QWidget;
     textWidget->setLayout(textLayout);
     layout->addWidget(textWidget, 3, 0);
-   /******************************* bouton text *******************************************************/
+   /******************************* bouton Cloison *******************************************************/
 
     layout->setRowStretch(4, 10);
     layout->setColumnStretch(1, 10);
@@ -386,12 +397,11 @@ void MainWindow::createToolBox()
     connect(backgroundButtonGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(backgroundButtonGroupClicked(QAbstractButton*)));
 
     QGridLayout *backgroundLayout = new QGridLayout;
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Blue Grid"), ":/images/background1.png"), 0, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("White Grid"), ":/images/background2.png"), 1, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Gray Grid"), ":/images/background3.png"), 2, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("No Grid"),":/images/background4.png"), 3, 0);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Escalier"), ":/images/escalier.png"), 0, 0);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Ascenseur"), ":/images/ascenseur.png"), 1, 0);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Connexion"), ":/images/Sortie.png"), 2, 0);
 
-    backgroundLayout->setRowStretch(2, 10);
+    backgroundLayout->setRowStretch(4, 10);
     backgroundLayout->setColumnStretch(2, 10);
 
     QWidget *backgroundWidget = new QWidget;
