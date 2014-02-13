@@ -18,9 +18,10 @@
         <file>images/couloir.png</file>
         <file>images/escalier.png</file>
         <file>images/Sortie.png</file>
-        <file>images/rectangle.png</file>
         <file>images/porte.png</file>
-        <file>images/Separation.png</file>
         <file>images/ascenseur.png</file>
+        <file>images/label.png</file>
+        <file>images/rectangle.png</file>
+        <file>images/Separation.png</file>
     </qresource>
 </RCC>

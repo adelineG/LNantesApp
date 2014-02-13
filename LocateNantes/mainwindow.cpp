@@ -400,9 +400,11 @@ void MainWindow::createToolBox()
     backgroundLayout->addWidget(createBackgroundCellWidget(tr("Escalier"), ":/images/escalier.png"), 0, 0);
     backgroundLayout->addWidget(createBackgroundCellWidget(tr("Ascenseur"), ":/images/ascenseur.png"), 1, 0);
     backgroundLayout->addWidget(createBackgroundCellWidget(tr("Connexion"), ":/images/Sortie.png"), 2, 0);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Label"), ":/images/label.png"), 3, 0);
 
-    backgroundLayout->setRowStretch(4, 10);
-    backgroundLayout->setColumnStretch(2, 10);
+
+    //backgroundLayout->setRowStretch(2, 10);
+    backgroundLayout->setColumnStretch(1, 10);
 
     QWidget *backgroundWidget = new QWidget;
     backgroundWidget->setLayout(backgroundLayout);
