@@ -48,6 +48,8 @@
 #include "arrow.h"
 #include "fenetrebat.h"
 #include "escalierfenetre.h"
+#include "fenetreconnexion.h"
+#include "fenetreetage.h"
 
 const int InsertTextButton = 10;
 
@@ -330,6 +332,16 @@ void MainWindow::ouvrirEscalier(){
     formulaire->show();
 }
 
+void MainWindow::ouvrirConnexion(){
+    FenetreConnexion *formulaire = new FenetreConnexion();
+    formulaire->show();
+}
+
+void MainWindow::ouvrirEtage(){
+    FenetreEtage *formulaire = new FenetreEtage();
+    formulaire->show();
+}
+
 
 //! [21]
 void MainWindow::createToolBox()
@@ -455,7 +467,7 @@ void MainWindow::createToolBox()
     connexionWidget->setLayout(connexionLayout);
     accesLayout->addWidget(connexionWidget, 2, 0);
 
-    //connect(connexionButton,SIGNAL(clicked()),this,SLOT(ouvrirConnexion()));
+    connect(connexionButton,SIGNAL(clicked()),this,SLOT(ouvrirConnexion()));
 
    /******************************* bouton connexion *******************************************************/
 
@@ -516,6 +528,7 @@ void MainWindow::createActions()
     actionConnexion = new QAction("&Connexion", this);
 
      actionEtage = new QAction("&Etage", this);
+     connect(actionEtage, SIGNAL(triggered()),this, SLOT(ouvrirEtage()));
 
      actionNouveauBatiment = new QAction("&Nouveau", this);
      actionChoisirBatiment = new QAction("&Choisir", this);

@@ -93,6 +93,8 @@ private slots:
     void about();
     void ouvrirBatiment();
     void ouvrirEscalier();
+    void ouvrirConnexion();
+    void ouvrirEtage();
 
 private:
     void createToolBox();
