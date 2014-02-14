@@ -92,6 +92,7 @@ private slots:
     void itemSelected(QGraphicsItem *item);
     void about();
     void ouvrirBatiment();
+    void ouvrirEscalier();
 
 private:
     void createToolBox();

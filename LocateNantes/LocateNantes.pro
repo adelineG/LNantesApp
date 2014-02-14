@@ -4,7 +4,8 @@ HEADERS += \
     diagramscene.h \
     mainwindow.h \
     diagramitem.h \
-    fenetrebat.h
+    fenetrebat.h \
+    escalierfenetre.h
 
 SOURCES += \
     arrow.cpp \
@@ -13,7 +14,8 @@ SOURCES += \
     main.cpp \
     diagramitem.cpp \
     mainwindow.cpp \
-    fenetrebat.cpp
+    fenetrebat.cpp \
+    escalierfenetre.cpp
 
 RESOURCES += \
     LocateNantes.qrc
