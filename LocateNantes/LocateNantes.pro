@@ -3,7 +3,8 @@ HEADERS += \
     diagramtextitem.h \
     diagramscene.h \
     mainwindow.h \
-    diagramitem.h
+    diagramitem.h \
+    fenetrebat.h
 
 SOURCES += \
     arrow.cpp \
@@ -11,7 +12,8 @@ SOURCES += \
     diagramtextitem.cpp \
     main.cpp \
     diagramitem.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    fenetrebat.cpp
 
 RESOURCES += \
     LocateNantes.qrc

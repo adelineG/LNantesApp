@@ -91,6 +91,7 @@ private slots:
     void handleFontChange();
     void itemSelected(QGraphicsItem *item);
     void about();
+    void ouvrirBatiment();
 
 private:
     void createToolBox();

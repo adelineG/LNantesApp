@@ -46,6 +46,7 @@
 #include "diagramscene.h"
 #include "diagramtextitem.h"
 #include "arrow.h"
+#include "fenetrebat.h"
 
 const int InsertTextButton = 10;
 
@@ -318,7 +319,10 @@ void MainWindow::about()
                        tr("Cette application vous permet de construire les plans des batiments de l'Université de Nantes"));
 }
 //! [20]
-
+void MainWindow::ouvrirBatiment(){
+    FenetreBat *formulaire = new FenetreBat();
+    formulaire->show();
+}
 //! [21]
 void MainWindow::createToolBox()
 {
@@ -343,6 +347,9 @@ void MainWindow::createToolBox()
     QWidget *batimentWidget = new QWidget;
     batimentWidget->setLayout(batimentLayout);
     layout->addWidget(batimentWidget, 0, 0);
+
+    connect(batimentButton,SIGNAL(clicked()),this,SLOT(ouvrirBatiment()));
+
    /******************************* bouton batiment *******************************************************/
     /******************************* bouton Couloir *******************************************************/
     QToolButton *couloirButton = new QToolButton;
