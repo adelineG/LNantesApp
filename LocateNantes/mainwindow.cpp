@@ -50,6 +50,7 @@
 #include "escalierfenetre.h"
 #include "fenetreconnexion.h"
 #include "fenetreetage.h"
+#include "customgrid.h"
 
 const int InsertTextButton = 10;
 
@@ -68,6 +69,7 @@ MainWindow::MainWindow()
     createToolbars();
 
     QHBoxLayout *layout = new QHBoxLayout;
+    /**************************** Grid ********************************************/
     view = new QGraphicsView(scene);
     layout->addWidget(view);
 

@@ -60,6 +60,7 @@ class QFont;
 class QToolButton;
 class QAbstractButton;
 class QGraphicsView;
+class customGrid;
 QT_END_NAMESPACE
 
 //! [0]
@@ -111,6 +112,7 @@ private:
 
     DiagramScene *scene;
     QGraphicsView *view;
+    customGrid *sceneGrid;
 
     QAction *actionQuitter;
     QAction *addAction;

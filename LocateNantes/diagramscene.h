@@ -91,6 +91,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void drawBackground(QPainter * painter, const QRectF & rect );
 
 private:
     bool isItemChange(int type);
