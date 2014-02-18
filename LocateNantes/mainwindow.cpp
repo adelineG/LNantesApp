@@ -72,14 +72,13 @@ MainWindow::MainWindow()
     QHBoxLayout *layout = new QHBoxLayout;
     /**************************** Grid ********************************************/
     view = new QGraphicsView(scene);
-    layout->addWidget(view);
+//    layout->addWidget(view);
+//	layout->addWidget(toolBox);
 
-    layout->addWidget(toolBox);
 
-    Rectangle *zonePlan = new Rectangle;
-    zonePlan->setLayout(layout);
-
-    setCentralWidget(zonePlan);
+    //setLayout(layout);
+    setCentralWidget(view);
+    addDockWidget(Qt::RightDockWidgetArea, toolBoxDock);
     setWindowTitle(tr("LocateUnivNantes"));
     setUnifiedTitleAndToolBarOnMac(true);
 }
@@ -484,11 +483,14 @@ void MainWindow::createToolBox()
 
 
 //! [22]
-    toolBox = new QToolBox;
+    toolBoxDock = new QDockWidget;
+    QToolBox* toolBox = new QToolBox(toolBoxDock);
     toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
     toolBox->setMinimumWidth(itemWidget->sizeHint().width());
     toolBox->addItem(itemWidget, tr("Construction"));
     toolBox->addItem(backgroundWidget, tr("Acces"));
+    toolBoxDock->setWidget(toolBox);
+
 }
 //! [22]
 

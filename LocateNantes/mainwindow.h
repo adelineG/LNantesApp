@@ -42,7 +42,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QDockWidget>
 #include "diagramitem.h"
 #include "rectangle.h"
 
@@ -165,7 +165,7 @@ private:
     QComboBox *fontSizeCombo;
     QFontComboBox *fontCombo;
 
-    QToolBox *toolBox;
+    QDockWidget *toolBoxDock;
     QButtonGroup *buttonGroup;
     QButtonGroup *pointerTypeGroup;
     QButtonGroup *backgroundButtonGroup;
