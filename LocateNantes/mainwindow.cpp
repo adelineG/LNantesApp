@@ -69,14 +69,10 @@ MainWindow::MainWindow()
     connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),this, SLOT(itemSelected(QGraphicsItem*)));
     createToolbars();
 
-    QHBoxLayout *layout = new QHBoxLayout;
+
     /**************************** Grid ********************************************/
     view = new QGraphicsView(scene);
-//    layout->addWidget(view);
-//	layout->addWidget(toolBox);
 
-
-    //setLayout(layout);
     setCentralWidget(view);
     addDockWidget(Qt::RightDockWidgetArea, toolBoxDock);
     setWindowTitle(tr("LocateUnivNantes"));

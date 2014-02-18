@@ -12,6 +12,12 @@ class ChoixConstruction : public QToolBox
     public:
 	ChoixConstruction(QWidget* parent = 0);
 
+private slots:
+    void ouvrirBatiment();
+    void ouvrirEscalier();
+    void ouvrirConnexion();
+    void ouvrirEtage();
+
     private:
 	QButtonGroup* buttonGroup;
 
