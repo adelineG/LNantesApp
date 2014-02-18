@@ -67,9 +67,11 @@ MainWindow::MainWindow()
     connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),this, SLOT(itemSelected(QGraphicsItem*)));
     createToolbars();
 
-    QHBoxLayout *layout = new QHBoxLayout;
+
     /**************************** Grid ********************************************/
     view = new QGraphicsView(scene);
+
+
     setCentralWidget(view);
     addDockWidget(Qt::RightDockWidgetArea, toolBoxDock);
 

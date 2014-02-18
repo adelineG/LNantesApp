@@ -1,5 +1,9 @@
 #include <QtGui>
 #include "choixconstruction.h"
+#include "fenetrebat.h"
+#include "escalierfenetre.h"
+#include "fenetreconnexion.h"
+#include "fenetreetage.h"
 
 ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
 {
@@ -22,6 +26,9 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     batimentWidget->setLayout(batimentLayout);
     layout->addWidget(batimentWidget, 0, 0);
 
+    connect(batimentButton,SIGNAL(clicked()),this,SLOT(ouvrirBatiment()));
+
+
    /******************************* bouton batiment *******************************************************/
     /******************************* bouton Couloir *******************************************************/
     QToolButton *couloirButton = new QToolButton;
@@ -35,6 +42,8 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *couloirWidget = new QWidget;
     couloirWidget->setLayout(couloirLayout);
     layout->addWidget(couloirWidget, 1, 0);
+
+
    /******************************* bouton Couloir *******************************************************/
 
     /******************************* bouton porte *******************************************************/
@@ -84,6 +93,8 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *escalierWidget = new QWidget;
     escalierWidget->setLayout(escalierLayout);
     accesLayout->addWidget(escalierWidget, 0, 0);
+
+     connect(escalierButton,SIGNAL(clicked()),this,SLOT(ouvrirEscalier()));
    /******************************* bouton escalier *******************************************************/
 
     /******************************* bouton ascenseur *******************************************************/
@@ -112,6 +123,10 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *connexionWidget = new QWidget;
     connexionWidget->setLayout(connexionLayout);
     accesLayout->addWidget(connexionWidget, 2, 0);
+
+    connect(connexionButton,SIGNAL(clicked()),this,SLOT(ouvrirConnexion()));
+
+
    /******************************* bouton connexion *******************************************************/
 
     /******************************* bouton connexion *******************************************************/
@@ -139,3 +154,22 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     addItem(backgroundWidget, tr("Acces"));
 }
 
+void ChoixConstruction::ouvrirBatiment(){
+    FenetreBat *formulaire = new FenetreBat();
+    formulaire->show();
+}
+
+void ChoixConstruction::ouvrirEscalier(){
+    EscalierFenetre *formulaire = new EscalierFenetre();
+    formulaire->show();
+}
+
+void ChoixConstruction::ouvrirConnexion(){
+    FenetreConnexion *formulaire = new FenetreConnexion();
+    formulaire->show();
+}
+
+void ChoixConstruction::ouvrirEtage(){
+    FenetreEtage *formulaire = new FenetreEtage();
+    formulaire->show();
+}
