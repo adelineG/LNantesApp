@@ -50,7 +50,8 @@
 #include "escalierfenetre.h"
 #include "fenetreconnexion.h"
 #include "fenetreetage.h"
-#include "customgrid.h"
+#include "rectangle.h"
+
 
 const int InsertTextButton = 10;
 
@@ -75,36 +76,16 @@ MainWindow::MainWindow()
 
     layout->addWidget(toolBox);
 
-    QWidget *widget = new QWidget;
-    widget->setLayout(layout);
+    Rectangle *zonePlan = new Rectangle;
+    zonePlan->setLayout(layout);
 
-    setCentralWidget(widget);
+    setCentralWidget(zonePlan);
     setWindowTitle(tr("LocateUnivNantes"));
     setUnifiedTitleAndToolBarOnMac(true);
 }
 //! [0]
 
-//! [1]
-void MainWindow::backgroundButtonGroupClicked(QAbstractButton *button)
-{
-    QList<QAbstractButton *> buttons = backgroundButtonGroup->buttons();
-    foreach (QAbstractButton *myButton, buttons) {
-        if (myButton != button)
-            myButton->setChecked(false);
-    }
-    QString text = button->text();
-    if (text == tr("Blue Grid"))
-        scene->setBackgroundBrush(QPixmap(":/images/background1.png"));
-    else if (text == tr("White Grid"))
-        scene->setBackgroundBrush(QPixmap(":/images/background2.png"));
-    else if (text == tr("Gray Grid"))
-        scene->setBackgroundBrush(QPixmap(":/images/background3.png"));
-    else
-        scene->setBackgroundBrush(QPixmap(":/images/background4.png"));
 
-    scene->update();
-    view->update();
-}
 //! [1]
 
 //! [2]

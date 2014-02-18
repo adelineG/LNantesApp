@@ -44,6 +44,8 @@
 #include <QMainWindow>
 
 #include "diagramitem.h"
+#include "rectangle.h"
+
 
 class DiagramScene;
 
@@ -60,7 +62,7 @@ class QFont;
 class QToolButton;
 class QAbstractButton;
 class QGraphicsView;
-class customGrid;
+
 QT_END_NAMESPACE
 
 //! [0]
@@ -72,7 +74,7 @@ public:
    MainWindow();
 
 private slots:
-    void backgroundButtonGroupClicked(QAbstractButton *button);
+    //void backgroundButtonGroupClicked(QAbstractButton *button);
     void buttonGroupClicked(int id);
     void deleteItem();
     void pointerGroupClicked(int id);
@@ -112,7 +114,8 @@ private:
 
     DiagramScene *scene;
     QGraphicsView *view;
-    customGrid *sceneGrid;
+    Rectangle *zonePlan;
+
 
     QAction *actionQuitter;
     QAction *addAction;
