@@ -44,7 +44,6 @@
 #include <QMainWindow>
 #include <QDockWidget>
 #include "diagramitem.h"
-#include "rectangle.h"
 
 
 class DiagramScene;
@@ -114,7 +113,6 @@ private:
 
     DiagramScene *scene;
     QGraphicsView *view;
-    Rectangle *zonePlan;
 
 
     QAction *actionQuitter;

@@ -16,6 +16,6 @@ class ChoixConstruction : public QToolBox
 	QButtonGroup* buttonGroup;
 
     signals:
-	void selectedConstruction(Construction::Type construction);
+	void selectedConstruction(int construction);
 };
 

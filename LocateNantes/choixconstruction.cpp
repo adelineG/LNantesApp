@@ -4,8 +4,8 @@
 ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
 {
     buttonGroup = new QButtonGroup(this);
-    buttonGroup->setExclusive(false);
-    connect(buttonGroup, SIGNAL(buttonClicked(int)),this, SLOT(selectedConstruction(Construction::Type)));
+    buttonGroup->setExclusive(true);
+    connect(buttonGroup, SIGNAL(buttonClicked(int)),this, SIGNAL(selectedConstruction(Construction::Type)));
 
     QGridLayout *layout = new QGridLayout;
 //! [21]
