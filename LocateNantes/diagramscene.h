@@ -87,6 +87,7 @@ protected:
 //    virtual void draw() const = 0;
 
    BatimentItem *bat;
+   QGraphicsSimpleTextItem *texteExemple;
 
 private:
     bool isItemChange(int type);
