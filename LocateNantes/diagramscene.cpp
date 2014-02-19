@@ -150,7 +150,13 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     line = 0;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);*/
         qDebug()<< startPoint << "---------------" <<mouseEvent->scenePos();
-    bat->paint(painter,startPoint,mouseEvent->scenePos());
+        painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
+                            Qt::RoundJoin));
+
+        painter.drawRect(QRectF(startPoint,mouseEvent->scenePos()));
+        bat->paint(&painter,new QStyleOptionGraphicsItem(),0);
+        //addItem(bat);
+
 
 }
 //! [13]

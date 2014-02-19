@@ -3,7 +3,7 @@
 
 PorteItem::PorteItem(DiagramScene *ds) : parent(ds)
 {
-    QPainterPath path;
+   /* QPainterPath path;
 
     QPointF offxh = lastPoint;
     QPointF offxv = lastPoint;
@@ -35,5 +35,5 @@ PorteItem::PorteItem(DiagramScene *ds) : parent(ds)
     path.addEllipse(endPoint,int(distance/3),int(distance/3));
     path.addEllipse(lastPoint,int(distance/3),int(distance/3));
 
-    setPath(path);
+    setPath(path);*/
 }
