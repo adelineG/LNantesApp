@@ -5,22 +5,24 @@
 #include <QPainter>
 #include <diagramscene.h>
 
-class BatimentItem : public QGraphicsItem
+class DiagramScene;
+
+class BatimentItem : public QGraphicsRectItem
 {
+    Q_OBJECT
 public:
-    BatimentItem(DiagramScene *ds){
-        parent = ds;
-    }
+    BatimentItem(DiagramScene*);
+    void draw(QPainter ,const QPointF &, const QPointF &)const ;
 
-
-private:
+protected:
     DiagramScene *parent;
 
-    QImage image;
+private:
 
+    QImage image;
     QPainter painter;
 
-    void draw(const QPointF &, const QPointF &);
+
 };
 
 #endif // BATIMENTITEM_H

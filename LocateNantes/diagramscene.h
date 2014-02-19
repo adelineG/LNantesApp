@@ -44,6 +44,7 @@
 #include <QGraphicsScene>
 #include "diagramitem.h"
 #include "diagramtextitem.h"
+#include "batimentitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -76,10 +77,13 @@ signals:
     void itemSelected(QGraphicsItem *item);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void drawBackground(QPainter * painter, const QRectF & rect );
+    virtual void draw() const = 0;
+
+   BatimentItem *bat;
 
 private:
     bool isItemChange(int type);
@@ -91,6 +95,8 @@ private:
     QPointF startPoint;
     QGraphicsLineItem *line;
     DiagramTextItem *textItem;
+    QPainter painter;
+
 };
 //! [0]
 

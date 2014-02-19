@@ -42,14 +42,15 @@
 
 #include "diagramscene.h"
 #include "arrow.h"
+#include "batimentitem.h"
 #include <QPainter>
 
 static const int GRID_STEP = 30;
 
 inline qreal round(qreal val, int step) {
-   int tmp = int(val) + step /2;
-   tmp -= tmp % step;
-   return qreal(tmp);
+    int tmp = int(val) + step /2;
+    tmp -= tmp % step;
+    return qreal(tmp);
 }
 
 //! [0]
@@ -61,6 +62,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
+    //bat= new BatimentItem(this);
 }
 //! [0]
 
@@ -94,37 +96,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() != Qt::LeftButton)
         return;
-
-    DiagramItem *item;
-    switch (myMode) {
-        case InsertItem:
-            item = new DiagramItem(myItemType, myItemMenu);
-            addItem(item);
-            item->setPos(mouseEvent->scenePos());
-            emit itemInserted(item);
-            break;
-//! [6] //! [7]
-        case InsertLine:
-            line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
-                                        mouseEvent->scenePos()));
-            addItem(line);
-            break;
-//! [7] //! [8]
-        case InsertText:
-            textItem = new DiagramTextItem();
-            textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
-            textItem->setZValue(1000.0);
-            connect(textItem, SIGNAL(lostFocus(DiagramTextItem*)),
-                    this, SLOT(editorLostFocus(DiagramTextItem*)));
-            connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
-                    this, SIGNAL(itemSelected(QGraphicsItem*)));
-            addItem(textItem);
-            emit textInserted(textItem);
-//! [8] //! [9]
-    default:
-        ;
-    }
     QGraphicsScene::mousePressEvent(mouseEvent);
+
+
+   bat->draw(painter,mouseEvent->pos(),mouseEvent->pos());
 }
 //! [9]
 
@@ -153,16 +128,16 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         removeItem(line);
         delete line;
-//! [11] //! [12]
+        //! [11] //! [12]
 
         if (startItems.count() > 0 && endItems.count() > 0 &&
-            startItems.first()->type() == DiagramItem::Type &&
-            endItems.first()->type() == DiagramItem::Type &&
-            startItems.first() != endItems.first()) {
+                startItems.first()->type() == DiagramItem::Type &&
+                endItems.first()->type() == DiagramItem::Type &&
+                startItems.first() != endItems.first()) {
             DiagramItem *startItem =
-                qgraphicsitem_cast<DiagramItem *>(startItems.first());
+                    qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem =
-                qgraphicsitem_cast<DiagramItem *>(endItems.first());
+                    qgraphicsitem_cast<DiagramItem *>(endItems.first());
             Arrow *arrow = new Arrow(startItem, endItem);
             startItem->addArrow(arrow);
             endItem->addArrow(arrow);
@@ -171,7 +146,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             arrow->updatePosition();
         }
     }
-//! [12] //! [13]
+    //! [12] //! [13]
     line = 0;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
@@ -189,24 +164,24 @@ bool DiagramScene::isItemChange(int type)
 //! [14]
 void DiagramScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-   int step = GRID_STEP;
-   painter->setPen(QPen(QColor(200, 200, 255, 125)));
-   // draw horizontal grid
-   qreal start = round(rect.top(), step);
-   if (start > rect.top()) {
-      start -= step;
-   }
-   for (qreal y = start - step; y < rect.bottom(); ) {
-      y += step;
-      painter->drawLine(rect.left(), y, rect.right(), y);
-   }
-   // now draw vertical grid
-   start = round(rect.left(), step);
-   if (start > rect.left()) {
-      start -= step;
-   }
-   for (qreal x = start - step; x < rect.right(); ) {
-      x += step;
-      painter->drawLine(x, rect.top(), x, rect.bottom());
-   }
+    int step = GRID_STEP;
+    painter->setPen(QPen(QColor(200, 200, 255, 125)));
+    // draw horizontal grid
+    qreal start = round(rect.top(), step);
+    if (start > rect.top()) {
+        start -= step;
+    }
+    for (qreal y = start - step; y < rect.bottom(); ) {
+        y += step;
+        painter->drawLine(rect.left(), y, rect.right(), y);
+    }
+    // now draw vertical grid
+    start = round(rect.left(), step);
+    if (start > rect.left()) {
+        start -= step;
+    }
+    for (qreal x = start - step; x < rect.right(); ) {
+        x += step;
+        painter->drawLine(x, rect.top(), x, rect.bottom());
+    }
 }

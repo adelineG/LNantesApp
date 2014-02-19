@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <diagramscene.h>
 
-class CouloirItem : public QGraphicsItem
+class CouloirItem : public QGraphicsLineItem
 {
 public:
     CouloirItem(DiagramScene *ds){
