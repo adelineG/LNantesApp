@@ -155,9 +155,10 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         //painter.drawRect(QRectF(startPoint,mouseEvent->scenePos()));
         //bat->paint(&painter,new QStyleOptionGraphicsItem(),0);
-	texteExemple = new QGraphicsSimpleTextItem("coucou");
-	texteExemple->setPos(mouseEvent->scenePos());
-        addItem(texteExemple);
+	bat = new BatimentItem(this);
+	bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+	bat->setPos(startPoint);
+        addItem(bat);
 }
 //! [13]
 
