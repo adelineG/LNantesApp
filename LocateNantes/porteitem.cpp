@@ -1,11 +1,9 @@
 #include "porteitem.h"
 
 
-
-void PorteItem::paint(QPainter& painter, const QPointF &lastPoint, const QPointF &endPoint){
-
-    painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
-                        Qt::RoundJoin));
+PorteItem::PorteItem(DiagramScene *ds) : parent(ds)
+{
+    QPainterPath path;
 
     QPointF offxh = lastPoint;
     QPointF offxv = lastPoint;
@@ -30,14 +28,12 @@ void PorteItem::paint(QPainter& painter, const QPointF &lastPoint, const QPointF
         offyv += QPoint(0,distance);
     }
 
-    painter.drawLine(QLine(offxh.x(), offxh.y(), lastPoint.x(), lastPoint.y()));
-    painter.drawLine(QLine(offxv.x(), offxv.y(), lastPoint.x(), lastPoint.y()));
-    painter.drawLine(QLine(endPoint.x(), endPoint.y(), offyh.x(), offyh.y()));
-    painter.drawLine(QLine(endPoint.x(), endPoint.y(), offyh.x(), offyh.y()));
-    //painter.setPen(QPen(myPenColor, 8, Qt::SolidLine, Qt::RoundCap,
-     //                   Qt::RoundJoin));
-    painter.drawEllipse(endPoint,int(distance/3),int(distance/3));
-    painter.drawEllipse(lastPoint,int(distance/3),int(distance/3));
+    path.addLine(QLine(offxh.x(), offxh.y(), lastPoint.x(), lastPoint.y()));
+    path.addLine(QLine(offxv.x(), offxv.y(), lastPoint.x(), lastPoint.y()));
+    path.addLine(QLine(endPoint.x(), endPoint.y(), offyh.x(), offyh.y()));
+    path.addLine(QLine(endPoint.x(), endPoint.y(), offyh.x(), offyh.y()));
+    path.addEllipse(endPoint,int(distance/3),int(distance/3));
+    path.addEllipse(lastPoint,int(distance/3),int(distance/3));
 
-
+    setPath(path);
 }

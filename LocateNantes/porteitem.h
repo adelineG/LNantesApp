@@ -7,15 +7,11 @@
 class PorteItem : public QGraphicsPathItem
 {
 public:
-    PorteItem(DiagramScene *ds){
-        parent = ds;
-    }
+    PorteItem(DiagramScene *ds);
 
 
 private:
     DiagramScene *parent;
-    QImage image;
-    void paint(QPainter&, const QPointF&, const QPointF&);
 };
 
 #endif // PORTEITEM_H
