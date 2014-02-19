@@ -83,6 +83,7 @@ protected:
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void drawBackground(QPainter * painter, const QRectF & rect );
+    void paintEvent(QPaintEvent*);
 //    virtual void draw() const = 0;
 
    BatimentItem *bat;

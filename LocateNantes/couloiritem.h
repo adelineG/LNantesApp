@@ -19,7 +19,7 @@ private:
     QImage image;
 
     QPainter painter;
-    void draw(const QPointF&, const QPointF&);
+    void paint(const QPointF&, const QPointF&);
 };
 
 #endif // COULOIRITEM_H

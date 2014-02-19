@@ -12,7 +12,7 @@ class BatimentItem : public QGraphicsRectItem
 
 public:
     BatimentItem(DiagramScene*);
-    void draw(QPainter& ,const QPointF &, const QPointF &)const ;
+    void paint(QPainter& ,const QPointF &, const QPointF &)const ;
 
 protected:
     DiagramScene *parent;

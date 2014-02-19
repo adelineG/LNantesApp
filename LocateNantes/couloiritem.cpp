@@ -2,7 +2,7 @@
 #include <QPainter>
 
 
-void CouloirItem::draw( const QPointF &lastPoint, const QPointF &endPoint){
+void CouloirItem::paint( const QPointF &lastPoint, const QPointF &endPoint){
 
     painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
                         Qt::RoundJoin));

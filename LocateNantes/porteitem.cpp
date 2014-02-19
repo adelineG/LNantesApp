@@ -2,7 +2,7 @@
 
 
 
-void PorteItem::draw(QPainter& painter, const QPointF &lastPoint, const QPointF &endPoint){
+void PorteItem::paint(QPainter& painter, const QPointF &lastPoint, const QPointF &endPoint){
 
     painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
                         Qt::RoundJoin));

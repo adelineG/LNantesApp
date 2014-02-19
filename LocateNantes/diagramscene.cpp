@@ -62,7 +62,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
-    //bat= new BatimentItem(this);
+
 }
 //! [0]
 
@@ -98,8 +98,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         return;
     QGraphicsScene::mousePressEvent(mouseEvent);
 
+    startPoint = mouseEvent->scenePos();
 
-   bat->draw(painter,mouseEvent->pos(),mouseEvent->pos());
 }
 //! [9]
 
@@ -118,7 +118,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 //! [11]
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (line != 0 && myMode == InsertLine) {
+    /*if (line != 0 && myMode == InsertLine) {
         QList<QGraphicsItem *> startItems = items(line->line().p1());
         if (startItems.count() && startItems.first() == line)
             startItems.removeFirst();
@@ -148,7 +148,10 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
     //! [12] //! [13]
     line = 0;
-    QGraphicsScene::mouseReleaseEvent(mouseEvent);
+    QGraphicsScene::mouseReleaseEvent(mouseEvent);*/
+        qDebug()<< startPoint << "---------------" <<mouseEvent->scenePos();
+    bat->paint(painter,startPoint,mouseEvent->scenePos());
+
 }
 //! [13]
 
@@ -184,4 +187,13 @@ void DiagramScene::drawBackground(QPainter *painter, const QRectF &rect)
         x += step;
         painter->drawLine(x, rect.top(), x, rect.bottom());
     }
+}
+
+
+void DiagramScene::paintEvent(QPaintEvent *event)
+//! [13] //! [14]
+{
+    //QPainter *painter(this);
+    QRect dirtyRect = event->rect();
+    //bat->paint(painter,event,mouseEvent->pos());
 }
