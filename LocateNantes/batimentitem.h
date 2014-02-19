@@ -9,10 +9,10 @@ class DiagramScene;
 
 class BatimentItem : public QGraphicsRectItem
 {
-    Q_OBJECT
+
 public:
     BatimentItem(DiagramScene*);
-    void draw(QPainter ,const QPointF &, const QPointF &)const ;
+    void draw(QPainter& ,const QPointF &, const QPointF &)const ;
 
 protected:
     DiagramScene *parent;

@@ -15,9 +15,7 @@ public:
 private:
     DiagramScene *parent;
     QImage image;
-    QPainter *painter;
-
-    void draw(QPointF,QPointF);
+    void draw(QPainter&, const QPointF&, const QPointF&);
 };
 
 #endif // PORTEITEM_H

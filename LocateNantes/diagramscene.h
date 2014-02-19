@@ -56,6 +56,8 @@ class QGraphicsTextItem;
 class QColor;
 QT_END_NAMESPACE
 
+class BatimentItem;
+
 //! [0]
 class DiagramScene : public QGraphicsScene
 {
@@ -81,7 +83,7 @@ protected:
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void drawBackground(QPainter * painter, const QRectF & rect );
-    virtual void draw() const = 0;
+//    virtual void draw() const = 0;
 
    BatimentItem *bat;
 

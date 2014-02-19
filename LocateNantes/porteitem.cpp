@@ -2,15 +2,15 @@
 
 
 
-void PorteItem::draw(const QPointF &lastPoint, const QPointF &endPoint){
+void PorteItem::draw(QPainter& painter, const QPointF &lastPoint, const QPointF &endPoint){
 
     painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
                         Qt::RoundJoin));
 
-    QPoint offxh = lastPoint;
-    QPoint offxv = lastPoint;
-    QPoint offyv = endPoint;
-    QPoint offyh = endPoint;
+    QPointF offxh = lastPoint;
+    QPointF offxv = lastPoint;
+    QPointF offyv = endPoint;
+    QPointF offyh = endPoint;
     int testx = endPoint.x()-lastPoint.x();
     int testy = endPoint.y()-lastPoint.y();
     int distance = (sqrt((testx*testx)+(testy*testy)))*0.25;
@@ -30,12 +30,12 @@ void PorteItem::draw(const QPointF &lastPoint, const QPointF &endPoint){
         offyv += QPoint(0,distance);
     }
 
-    painter.drawLine(QLine(offxh, lastPoint));
-    painter.drawLine(QLine(offxv, lastPoint));
-    painter.drawLine(QLine(endPoint, offyh));
-    painter.drawLine(QLine(endPoint, offyv));
-    painter.setPen(QPen(myPenColor, 8, Qt::SolidLine, Qt::RoundCap,
-                        Qt::RoundJoin));
+    painter.drawLine(QLine(offxh.x(), offxh.y(), lastPoint.x(), lastPoint.y()));
+    painter.drawLine(QLine(offxv.x(), offxv.y(), lastPoint.x(), lastPoint.y()));
+    painter.drawLine(QLine(endPoint.x(), endPoint.y(), offyh.x(), offyh.y()));
+    painter.drawLine(QLine(endPoint.x(), endPoint.y(), offyh.x(), offyh.y()));
+    //painter.setPen(QPen(myPenColor, 8, Qt::SolidLine, Qt::RoundCap,
+     //                   Qt::RoundJoin));
     painter.drawEllipse(endPoint,int(distance/3),int(distance/3));
     painter.drawEllipse(lastPoint,int(distance/3),int(distance/3));
 
