@@ -4,12 +4,12 @@
 #include <QPainter>
 #include <diagramscene.h>
 
+class DiagramScene;
+
 class CouloirItem : public QGraphicsLineItem
 {
 public:
-    CouloirItem(DiagramScene *ds){
-        parent = ds;
-    }
+    CouloirItem(DiagramScene*);
 
 
 
@@ -18,8 +18,7 @@ private:
 
     QImage image;
 
-    QPainter painter;
-    void paint(const QPointF&, const QPointF&);
+
 };
 
 #endif // COULOIRITEM_H

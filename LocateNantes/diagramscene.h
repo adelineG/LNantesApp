@@ -45,6 +45,8 @@
 #include "diagramitem.h"
 #include "diagramtextitem.h"
 #include "batimentitem.h"
+#include "couloiritem.h"
+#include "porteitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -57,6 +59,8 @@ class QColor;
 QT_END_NAMESPACE
 
 class BatimentItem;
+class CouloirItem;
+class PorteItem;
 
 //! [0]
 class DiagramScene : public QGraphicsScene
@@ -84,10 +88,13 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void drawBackground(QPainter * painter, const QRectF & rect );
     void paintEvent(QPaintEvent*);
-//    virtual void draw() const = 0;
+    //    virtual void draw() const = 0;
 
-   BatimentItem *bat;
-   QGraphicsSimpleTextItem *texteExemple;
+    BatimentItem *bat;
+    CouloirItem *coulS;
+    CouloirItem *coulI;
+    PorteItem *porte;
+    QGraphicsSimpleTextItem *texteExemple;
 
 private:
     bool isItemChange(int type);

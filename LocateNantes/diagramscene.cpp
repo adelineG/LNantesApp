@@ -43,6 +43,8 @@
 #include "diagramscene.h"
 #include "arrow.h"
 #include "batimentitem.h"
+#include "couloiritem.h"
+#include "porteitem.h"
 #include <QPainter>
 
 static const int GRID_STEP = 30;
@@ -147,18 +149,53 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         }
     }
     //! [12] //! [13]
-    line = 0;
-    QGraphicsScene::mouseReleaseEvent(mouseEvent);*/
-        qDebug()<< startPoint << "---------------" <<mouseEvent->scenePos();
-        //painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
-        //                    Qt::RoundJoin));
 
-        //painter.drawRect(QRectF(startPoint,mouseEvent->scenePos()));
-        //bat->paint(&painter,new QStyleOptionGraphicsItem(),0);
-	bat = new BatimentItem(this);
-	bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-	bat->setPos(startPoint);
+    QGraphicsScene::mouseReleaseEvent(mouseEvent);*/
+
+    /*************************************************************************************************/
+
+    /* bat = new BatimentItem(this);
+    bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+    bat->setPos(startPoint);
         addItem(bat);
+    */
+    /*************************************************************************************************/
+    /* qDebug()<< startPoint << "---------------" <<mouseEvent->scenePos();
+
+    QPointF offx = startPoint;
+    QPointF offy = mouseEvent->scenePos();
+    int testx = abs(offy.x()-offx.x());
+    int testy = abs(offy.y()-offx.y());
+
+    if( testx <= testy ){
+
+        offx += QPointF(40,0);
+        offy += QPointF(40,0);
+    }
+    else if(testx > testy)
+    {
+
+        offx += QPointF(0,40);
+        offy += QPointF(0,40);
+    }
+
+
+    coulS = new CouloirItem(this);
+    coulI = new CouloirItem(this);
+    coulS->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+    coulI->setLine(QLineF(QPointF(0,0),offy-offx));
+    coulS->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+    coulI->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+    coulS->setPos(startPoint);
+    coulI->setPos(offx);
+    addItem(coulS);
+    addItem(coulI);*/
+    /***************************************************************************************/
+
+
+
+
+
 }
 //! [13]
 

@@ -2,12 +2,14 @@
 #include <QPainter>
 
 
-void CouloirItem::paint( const QPointF &lastPoint, const QPointF &endPoint){
+CouloirItem::CouloirItem(DiagramScene *ds) : parent(ds){}
+
+/*void CouloirItem::paint( const QPointF &lastPoint, const QPointF &endPoint){
 
     painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap,
                         Qt::RoundJoin));
 
-    /*************************dessin couloir*****************************/
+
     QPointF offx = lastPoint;
     QPointF offy = endPoint;
     int testx = endPoint.x()-lastPoint.x();
@@ -28,4 +30,4 @@ void CouloirItem::paint( const QPointF &lastPoint, const QPointF &endPoint){
     }
     painter.drawLine(QLineF(lastPoint, endPoint));
     painter.drawLine(QLineF(offx, offy));
-}
+}*/

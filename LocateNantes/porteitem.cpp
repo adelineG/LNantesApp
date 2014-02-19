@@ -1,8 +1,7 @@
 #include "porteitem.h"
 
 
-PorteItem::PorteItem(DiagramScene *ds) : parent(ds)
-{
+PorteItem::PorteItem(DiagramScene *ds) : parent(ds){}
    /* QPainterPath path;
 
     QPointF offxh = lastPoint;
@@ -35,5 +34,5 @@ PorteItem::PorteItem(DiagramScene *ds) : parent(ds)
     path.addEllipse(endPoint,int(distance/3),int(distance/3));
     path.addEllipse(lastPoint,int(distance/3),int(distance/3));
 
-    setPath(path);*/
-}
+    setPath(path);
+}*/
