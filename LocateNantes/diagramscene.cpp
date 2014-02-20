@@ -120,7 +120,9 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 //! [11]
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    /*if (line != 0 && myMode == InsertLine) {
+
+
+    if (line != 0 && myMode == InsertLine) {
         QList<QGraphicsItem *> startItems = items(line->line().p1());
         if (startItems.count() && startItems.first() == line)
             startItems.removeFirst();
@@ -150,46 +152,48 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
     //! [12] //! [13]
 
-    QGraphicsScene::mouseReleaseEvent(mouseEvent);*/
+
+
 
     /*************************************************************************************************/
+    if (myMode==AddBatiment){
 
-    /* bat = new BatimentItem(this);
-    bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-    bat->setPos(startPoint);
+        bat = new BatimentItem(this);
+        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+        bat->setPos(startPoint);
         addItem(bat);
-    */
+    }
     /*************************************************************************************************/
-    /* qDebug()<< startPoint << "---------------" <<mouseEvent->scenePos();
+    else if(myMode == AddCouloir){
+        QPointF offx = startPoint;
+        QPointF offy = mouseEvent->scenePos();
+        int testx = abs(offy.x()-offx.x());
+        int testy = abs(offy.y()-offx.y());
 
-    QPointF offx = startPoint;
-    QPointF offy = mouseEvent->scenePos();
-    int testx = abs(offy.x()-offx.x());
-    int testy = abs(offy.y()-offx.y());
+        if( testx <= testy ){
 
-    if( testx <= testy ){
+            offx += QPointF(40,0);
+            offy += QPointF(40,0);
+        }
+        else if(testx > testy)
+        {
 
-        offx += QPointF(40,0);
-        offy += QPointF(40,0);
+            offx += QPointF(0,40);
+            offy += QPointF(0,40);
+        }
+
+
+        coulS = new CouloirItem(this);
+        coulI = new CouloirItem(this);
+        coulS->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+        coulI->setLine(QLineF(QPointF(0,0),offy-offx));
+        coulS->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        coulI->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        coulS->setPos(startPoint);
+        coulI->setPos(offx);
+        addItem(coulS);
+        addItem(coulI);
     }
-    else if(testx > testy)
-    {
-
-        offx += QPointF(0,40);
-        offy += QPointF(0,40);
-    }
-
-
-    coulS = new CouloirItem(this);
-    coulI = new CouloirItem(this);
-    coulS->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-    coulI->setLine(QLineF(QPointF(0,0),offy-offx));
-    coulS->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-    coulI->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-    coulS->setPos(startPoint);
-    coulI->setPos(offx);
-    addItem(coulS);
-    addItem(coulI);*/
     /***************************************************************************************/
 
 

@@ -4,8 +4,10 @@
 #include "escalierfenetre.h"
 #include "fenetreconnexion.h"
 #include "fenetreetage.h"
+#include "mainwindow.h"
+#include "diagramscene.h"
 
-ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
+ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : QToolBox(parent)
 {
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(true);
@@ -26,7 +28,7 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     batimentWidget->setLayout(batimentLayout);
     layout->addWidget(batimentWidget, 0, 0);
 
-    connect(batimentButton,SIGNAL(clicked()),this,SLOT(ouvrirBatiment()));
+    connect(batimentButton,SIGNAL(clicked()),this,SLOT(ouvrirBatiment(main)));
 
 
    /******************************* bouton batiment *******************************************************/
@@ -42,7 +44,7 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *couloirWidget = new QWidget;
     couloirWidget->setLayout(couloirLayout);
     layout->addWidget(couloirWidget, 1, 0);
-
+    connect(couloirButton,SIGNAL(clicked()),this,SLOT(ouvrirCouloir()));
 
    /******************************* bouton Couloir *******************************************************/
 
@@ -154,9 +156,18 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     addItem(backgroundWidget, tr("Acces"));
 }
 
-void ChoixConstruction::ouvrirBatiment(){
+void ChoixConstruction::ouvrirBatiment(MainWindow const* main){
     FenetreBat *formulaire = new FenetreBat();
     formulaire->show();
+    //DiagramScene *d = main->getScene();
+    /*d.setMode(DiagramScene::AddBatiment);
+    MainWindow::setScene(d);*/
+    //MainWindow.setScene(MainWindow.getScene()->setMode(DiagramScene::AddBatiment));
+    main->getScene()->setMode(DiagramScene::AddBatiment);
+}
+
+void ChoixConstruction::ouvrirCouloir(){
+   // MainWindow.setScene(MainWindow.getScene()->setMode(DiagramScene::AddCouloir));
 }
 
 void ChoixConstruction::ouvrirEscalier(){

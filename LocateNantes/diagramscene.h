@@ -56,6 +56,7 @@ class QGraphicsLineItem;
 class QFont;
 class QGraphicsTextItem;
 class QColor;
+class MainWindow;
 QT_END_NAMESPACE
 
 class BatimentItem;
@@ -68,12 +69,13 @@ class DiagramScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    enum Mode { InsertItem, InsertLine, InsertText, MoveItem };
+    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir };
 
     DiagramScene(QMenu *itemMenu , QObject *parent = 0);
 
 public slots:
     void setMode(Mode mode);
+    Mode getMode (){return myMode;}
     void setItemType(DiagramItem::DiagramType type);
     void editorLostFocus(DiagramTextItem *item);
 
@@ -88,7 +90,7 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void drawBackground(QPainter * painter, const QRectF & rect );
     void paintEvent(QPaintEvent*);
-    //    virtual void draw() const = 0;
+
 
     BatimentItem *bat;
     CouloirItem *coulS;

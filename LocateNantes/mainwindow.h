@@ -46,7 +46,7 @@
 #include "diagramitem.h"
 
 
-class DiagramScene;
+
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -61,7 +61,7 @@ class QFont;
 class QToolButton;
 class QAbstractButton;
 class QGraphicsView;
-
+class DiagramScene;
 QT_END_NAMESPACE
 
 //! [0]
@@ -71,6 +71,9 @@ class MainWindow : public QMainWindow
 
 public:
    MainWindow();
+   DiagramScene* getScene() const {return scene;}
+   void setScene(DiagramScene* sc){scene=sc;}
+   DiagramScene *scene;
 
 private slots:
     //void backgroundButtonGroupClicked(QAbstractButton *button);
@@ -87,6 +90,7 @@ private slots:
     void ouvrirEscalier();
     void ouvrirConnexion();
     void ouvrirEtage();
+    void ouvrirCouloir();
 
 private:
     void createToolBox();
@@ -98,7 +102,7 @@ private:
     QIcon createColorToolButtonIcon(const QString &image, QColor color);
     QIcon createColorIcon(QColor color);
 
-    DiagramScene *scene;
+
     QGraphicsView *view;
 
 

@@ -56,15 +56,16 @@
 //! [0]
 MainWindow::MainWindow()
 {
-    createActions();
-    createToolBox();
-    createMenus();
+
 
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
     connect(scene, SIGNAL(itemInserted(DiagramItem*)),this, SLOT(itemInserted(DiagramItem*)));
     connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)), this, SLOT(textInserted(QGraphicsTextItem*)));
     connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),this, SLOT(itemSelected(QGraphicsItem*)));
+    createActions();
+    createToolBox();
+    createMenus();
     createToolbars();
 
 
@@ -77,6 +78,7 @@ MainWindow::MainWindow()
 
     setWindowTitle(tr("LocateUnivNantes"));
     setUnifiedTitleAndToolBarOnMac(true);
+
 }
 //! [0]
 
@@ -196,13 +198,21 @@ void MainWindow::about()
 }
 //! [20]
 void MainWindow::ouvrirBatiment(){
-    FenetreBat *formulaire = new FenetreBat();
+    qDebug()<< "je passe par la ";
+    /*FenetreBat *formulaire = new FenetreBat();
     formulaire->show();
+    scene->setMode(DiagramScene::AddBatiment);*/
+
+}
+
+void MainWindow::ouvrirCouloir(){
+     scene->setMode(DiagramScene::AddCouloir);
 }
 
 void MainWindow::ouvrirEscalier(){
     EscalierFenetre *formulaire = new EscalierFenetre();
     formulaire->show();
+
 }
 
 void MainWindow::ouvrirConnexion(){
@@ -221,7 +231,7 @@ void MainWindow::createToolBox()
 {
 //! [22]
     toolBoxDock = new QDockWidget;
-    ChoixConstruction* toolBox = new ChoixConstruction(toolBoxDock);
+    ChoixConstruction* toolBox = new ChoixConstruction(this,toolBoxDock);
     toolBoxDock->setWidget(toolBox);
 }
 //! [22]

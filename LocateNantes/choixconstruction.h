@@ -1,4 +1,6 @@
 #include <QtGui>
+#include "mainwindow.h"
+
 
 namespace Construction {
     enum Type { Batiment, Couloir, Porte, Cloison, Escalier, Ascenseur,
@@ -10,16 +12,17 @@ class ChoixConstruction : public QToolBox
     Q_OBJECT
 
     public:
-	ChoixConstruction(QWidget* parent = 0);
+    ChoixConstruction(MainWindow const*,QWidget* parent = 0);
 
 private slots:
-    void ouvrirBatiment();
+    void ouvrirBatiment(const MainWindow *);
     void ouvrirEscalier();
     void ouvrirConnexion();
     void ouvrirEtage();
+    void ouvrirCouloir();
 
     private:
-	QButtonGroup* buttonGroup;
+    QButtonGroup* buttonGroup;
 
     signals:
 	void selectedConstruction(int construction);
