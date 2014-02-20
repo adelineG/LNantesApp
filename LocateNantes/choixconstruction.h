@@ -24,6 +24,7 @@ public slots:
     void ouvrirCouloir();
     void ouvrirPorte();
     void ouvrirAscenseur();
+    void ouvrirCloison();
 
     private:
     QButtonGroup* buttonGroup;

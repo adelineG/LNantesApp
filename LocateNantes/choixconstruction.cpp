@@ -77,6 +77,8 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *cloisonWidget = new QWidget;
     cloisonWidget->setLayout(cloisonLayout);
     layout->addWidget(cloisonWidget, 3, 0);
+
+    connect(cloisonButton,SIGNAL(clicked()),this,SLOT(ouvrirCloison()));
    /******************************* bouton Cloison *******************************************************/
     layout->setRowStretch(4, 10);
     layout->setColumnStretch(1, 10);
@@ -175,10 +177,14 @@ void ChoixConstruction::ouvrirPorte(){
    main->getScene()->setMode(DiagramScene::AddPorte);
 }
 
+void ChoixConstruction::ouvrirCloison(){
+   main->getScene()->setMode(DiagramScene::AddCloison);
+}
+
+
 
 void ChoixConstruction::ouvrirEscalier(){
-    EscalierFenetre *formulaire = new EscalierFenetre();
-    formulaire->show();
+
     main->getScene()->setMode(DiagramScene::AddEscalier);
 }
 
@@ -188,8 +194,7 @@ void ChoixConstruction::ouvrirAscenseur(){
 }
 
 void ChoixConstruction::ouvrirConnexion(){
-    FenetreConnexion *formulaire = new FenetreConnexion();
-    formulaire->show();
+
     main->getScene()->setMode(DiagramScene::AddConnexion);
 }
 
