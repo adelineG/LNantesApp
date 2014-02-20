@@ -152,14 +152,11 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
     //! [12] //! [13]
 
-
-
-
     /*************************************************************************************************/
     if (myMode==AddBatiment){
 
         bat = new BatimentItem(this);
-        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
         addItem(bat);
     }
