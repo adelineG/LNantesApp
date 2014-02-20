@@ -138,8 +138,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     if(myMode == AddPorte){
 
-        FenetrePorte *fen = new FenetrePorte();
-        fen->show();
+
         QPointF offxh = startPoint;
         QPointF offxv = startPoint;
         QPointF offyv = mouseEvent->scenePos();
@@ -270,6 +269,18 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 //! [11]
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
+
+    if(myMode==AddPorte){
+
+        FenetrePorte *fen = new FenetrePorte();
+        fen->show();
+
+        QGraphicsSimpleTextItem *label= new QGraphicsSimpleTextItem();
+        label->setText(fen->getNomSalle());
+        label->setPos(mouseEvent->pos());
+        addItem(label);
+    }
+
 
     if (myMode == MoveItem)
 	itemEnDeplacement = NULL;
