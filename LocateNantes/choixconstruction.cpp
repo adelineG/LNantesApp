@@ -61,7 +61,7 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     porteWidget->setLayout(porteLayout);
     layout->addWidget(porteWidget, 2, 0);
 
-     connect(couloirButton,SIGNAL(clicked()),this,SLOT(ouvrirPorte()));
+    connect(porteButton,SIGNAL(clicked()),this,SLOT(ouvrirPorte()));
    /******************************* bouton porte *******************************************************/
 
 
@@ -166,7 +166,7 @@ void ChoixConstruction::ouvrirBatiment(){
 
 void ChoixConstruction::ouvrirCouloir(){
    main->getScene()->setMode(DiagramScene::AddCouloir);
-   qDebug()<<"ici ------"<<DiagramScene::AddCouloir;
+
 }
 
 void ChoixConstruction::ouvrirPorte(){

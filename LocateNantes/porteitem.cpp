@@ -2,9 +2,10 @@
 
 
 PorteItem::PorteItem(DiagramScene *ds) : parent(ds){}
-   /* QPainterPath path;
 
-    QPointF offxh = lastPoint;
+
+
+    /*QPointF offxh = lastPoint;
     QPointF offxv = lastPoint;
     QPointF offyv = endPoint;
     QPointF offyh = endPoint;

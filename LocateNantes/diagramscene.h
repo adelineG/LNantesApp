@@ -95,7 +95,8 @@ protected:
     BatimentItem *bat;
     CouloirItem *coulS;
     CouloirItem *coulI;
-    PorteItem *porte;
+    PorteItem *porteG;
+    PorteItem *porteD;
     QGraphicsSimpleTextItem *texteExemple;
 
 private:
