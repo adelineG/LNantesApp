@@ -71,6 +71,12 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     QGraphicsScene::mousePressEvent(mouseEvent);
     startPoint = mouseEvent->scenePos();
 
+    if (myMode == MoveItem) {
+	itemEnDeplacement = this->itemAt(startPoint);
+	if (itemEnDeplacement != NULL)
+	    offsetPointer = startPoint - itemEnDeplacement->pos();
+    }
+
     if (myMode==AddBatiment){
         bat = new BatimentItem(this);
         bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
@@ -185,6 +191,8 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         line->setLine(newLine);
     } else if (myMode == MoveItem) {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
+	if (itemEnDeplacement != NULL)
+	    itemEnDeplacement->setPos(mouseEvent->scenePos()-offsetPointer);
     }
 
     if (myMode==AddBatiment){
@@ -259,6 +267,8 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
 
+    if (myMode == MoveItem)
+	itemEnDeplacement = NULL;
 
     if (line != 0 && myMode == InsertLine) {
         QList<QGraphicsItem *> startItems = items(line->line().p1());
@@ -292,12 +302,8 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     /*************************************************************************************************/
     // si on est en mode bâtiment, il n'y a rien à faire, sinon, changer de mode
+    myMode = MoveItem;
     /***************************************************************************************/
-
-
-
-
-
 }
 //! [13]
 

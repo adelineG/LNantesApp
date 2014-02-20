@@ -107,6 +107,7 @@ protected:
     ConnexionItem* connexion;
     CloisonItem* cloison;
     QGraphicsSimpleTextItem *texteExemple;
+    QGraphicsItem* itemEnDeplacement;
 
 private:
     bool isItemChange(int type);
@@ -119,6 +120,7 @@ private:
     QGraphicsLineItem *line;
     DiagramTextItem *textItem;
     QPainter painter;
+    QPointF offsetPointer;
 
 };
 //! [0]
