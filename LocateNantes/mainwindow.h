@@ -84,7 +84,7 @@ private slots:
     void itemInserted(DiagramItem *item);
     void textInserted(QGraphicsTextItem *item);
     void sceneScaleChanged(const QString &scale);
-    void itemSelected(QGraphicsItem *item);
+    void itemSelectionChanged(QGraphicsItem *item);
     void about();
     void ouvrirBatiment();
     void ouvrirEscalier();
@@ -97,6 +97,7 @@ private:
     void createActions();
     void createMenus();
     void createToolbars();
+    void createStatusBar();
     
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
     QIcon createColorToolButtonIcon(const QString &image, QColor color);
@@ -154,6 +155,8 @@ private:
     QDockWidget *toolBoxDock;
     QButtonGroup *pointerTypeGroup;
     QButtonGroup *backgroundButtonGroup;
+
+    QStatusBar *statusBar;
 };
 //! [0]
 

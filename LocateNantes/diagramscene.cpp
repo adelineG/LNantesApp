@@ -73,8 +73,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     if (myMode == MoveItem) {
 	itemEnDeplacement = this->itemAt(startPoint);
-	if (itemEnDeplacement != NULL)
+	if (itemEnDeplacement != NULL) {
 	    offsetPointer = startPoint - itemEnDeplacement->pos();
+	}
+	emit itemSelected(itemEnDeplacement);
     }
 
     if (myMode==AddBatiment){

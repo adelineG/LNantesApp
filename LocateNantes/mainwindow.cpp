@@ -56,17 +56,16 @@
 //! [0]
 MainWindow::MainWindow()
 {
-
-
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
     connect(scene, SIGNAL(itemInserted(DiagramItem*)),this, SLOT(itemInserted(DiagramItem*)));
     connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)), this, SLOT(textInserted(QGraphicsTextItem*)));
-    connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),this, SLOT(itemSelected(QGraphicsItem*)));
+    connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),this, SLOT(itemSelectionChanged(QGraphicsItem*)));
     createActions();
     createToolBox();
     createMenus();
     createToolbars();
+    createStatusBar();
 
 
     /**************************** Grid ********************************************/
@@ -74,7 +73,6 @@ MainWindow::MainWindow()
 
 
     setCentralWidget(view);
-    addDockWidget(Qt::RightDockWidgetArea, toolBoxDock);
 
     setWindowTitle(tr("LocateUnivNantes"));
     setUnifiedTitleAndToolBarOnMac(true);
@@ -182,11 +180,21 @@ void MainWindow::sceneScaleChanged(const QString &scale)
 //! [11]
 
 //! [19]
-void MainWindow::itemSelected(QGraphicsItem *item)
+void MainWindow::itemSelectionChanged(QGraphicsItem *item)
 {
     DiagramTextItem *textItem =
     qgraphicsitem_cast<DiagramTextItem *>(item);
-    //
+
+    if (item == NULL) {
+	statusBar->clearMessage();
+	return;
+    }
+
+
+    if (item->type() == QGraphicsItem::UserType + 1){ //Batiment 
+	BatimentItem *bat = static_cast<BatimentItem*>(item);
+	statusBar->showMessage(QString::fromUtf8("Bât. ") + bat->nom() + QString::fromUtf8(" - ") + QString::number(bat->nbEtages()) + QString::fromUtf8(" étage(s)"));
+    }
 }
 //! [19]
 
@@ -225,6 +233,11 @@ void MainWindow::ouvrirEtage(){
     formulaire->show();
 }
 
+void MainWindow::createStatusBar()
+{
+    statusBar = new QStatusBar;
+    setStatusBar(statusBar);
+}
 
 //! [21]
 void MainWindow::createToolBox()
@@ -234,6 +247,7 @@ void MainWindow::createToolBox()
     ChoixConstruction* toolBox = new ChoixConstruction(toolBoxDock);
     toolBox->setMainWindow(this);
     toolBoxDock->setWidget(toolBox);
+    addDockWidget(Qt::RightDockWidgetArea, toolBoxDock);
 }
 //! [22]
 

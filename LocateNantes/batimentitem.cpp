@@ -1,9 +1,11 @@
 #include "batimentitem.h"
 #include "diagramscene.h"
 
-BatimentItem::BatimentItem(DiagramScene *ds) : parent(ds){
-
+BatimentItem::BatimentItem(DiagramScene *ds) : parent(ds), _nom("coucou"), _nbEtages(5)
+{
 }
+
+
 
 /*void BatimentItem::paint(QPainter& painter,const QPointF &lastPoint, const QPointF &endPoint) const{
 
