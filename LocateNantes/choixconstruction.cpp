@@ -7,7 +7,7 @@
 #include "mainwindow.h"
 #include "diagramscene.h"
 
-ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : QToolBox(parent)
+ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
 {
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(true);
@@ -28,7 +28,7 @@ ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : Q
     batimentWidget->setLayout(batimentLayout);
     layout->addWidget(batimentWidget, 0, 0);
 
-    connect(batimentButton,SIGNAL(clicked()),this,SLOT(ouvrirBatiment(main)));
+    connect(batimentButton,SIGNAL(clicked()),this,SLOT(ouvrirBatiment()));
 
 
    /******************************* bouton batiment *******************************************************/
@@ -60,6 +60,8 @@ ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : Q
     QWidget *porteWidget = new QWidget;
     porteWidget->setLayout(porteLayout);
     layout->addWidget(porteWidget, 2, 0);
+
+    connect(porteButton,SIGNAL(clicked()),this,SLOT(ouvrirPorte()));
    /******************************* bouton porte *******************************************************/
 
 
@@ -111,6 +113,8 @@ ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : Q
     QWidget *ascenseurWidget = new QWidget;
     ascenseurWidget->setLayout(ascenseurLayout);
     accesLayout->addWidget(ascenseurWidget, 1, 0);
+
+      connect(ascenseurButton,SIGNAL(clicked()),this,SLOT(ouvrirAscenseur()));
    /******************************* bouton ascenseur *******************************************************/
 
     /******************************* bouton connexion *******************************************************/
@@ -131,7 +135,7 @@ ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : Q
 
    /******************************* bouton connexion *******************************************************/
 
-    /******************************* bouton connexion *******************************************************/
+    /******************************* bouton label *******************************************************/
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
     buttonGroup->addButton(textButton, Construction::Label);
@@ -156,28 +160,37 @@ ChoixConstruction::ChoixConstruction(MainWindow const* main,QWidget* parent) : Q
     addItem(backgroundWidget, tr("Acces"));
 }
 
-void ChoixConstruction::ouvrirBatiment(MainWindow const* main){
+void ChoixConstruction::ouvrirBatiment(){
     FenetreBat *formulaire = new FenetreBat();
     formulaire->show();
-    //DiagramScene *d = main->getScene();
-    /*d.setMode(DiagramScene::AddBatiment);
-    MainWindow::setScene(d);*/
-    //MainWindow.setScene(MainWindow.getScene()->setMode(DiagramScene::AddBatiment));
     main->getScene()->setMode(DiagramScene::AddBatiment);
 }
 
 void ChoixConstruction::ouvrirCouloir(){
-   // MainWindow.setScene(MainWindow.getScene()->setMode(DiagramScene::AddCouloir));
+   main->getScene()->setMode(DiagramScene::AddCouloir);
+
 }
+
+void ChoixConstruction::ouvrirPorte(){
+   main->getScene()->setMode(DiagramScene::AddPorte);
+}
+
 
 void ChoixConstruction::ouvrirEscalier(){
     EscalierFenetre *formulaire = new EscalierFenetre();
     formulaire->show();
+    main->getScene()->setMode(DiagramScene::AddEscalier);
+}
+
+void ChoixConstruction::ouvrirAscenseur(){
+
+    main->getScene()->setMode(DiagramScene::AddAscenseur);
 }
 
 void ChoixConstruction::ouvrirConnexion(){
     FenetreConnexion *formulaire = new FenetreConnexion();
     formulaire->show();
+    main->getScene()->setMode(DiagramScene::AddConnexion);
 }
 
 void ChoixConstruction::ouvrirEtage(){

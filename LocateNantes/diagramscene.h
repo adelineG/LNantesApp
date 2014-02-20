@@ -57,11 +57,15 @@ class QFont;
 class QGraphicsTextItem;
 class QColor;
 class MainWindow;
+
 QT_END_NAMESPACE
 
 class BatimentItem;
 class CouloirItem;
 class PorteItem;
+class EscalierItem;
+class ConnexionItem;
+class AscenseurItem;
 
 //! [0]
 class DiagramScene : public QGraphicsScene
@@ -69,7 +73,7 @@ class DiagramScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir };
+    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte, AddEscalier, AddAscenseur, AddConnexion};
 
     DiagramScene(QMenu *itemMenu , QObject *parent = 0);
 
@@ -95,7 +99,11 @@ protected:
     BatimentItem *bat;
     CouloirItem *coulS;
     CouloirItem *coulI;
-    PorteItem *porte;
+    PorteItem *porteG;
+    PorteItem *porteD;
+    EscalierItem* escalier;
+    AscenseurItem* ascenseur;
+    ConnexionItem* connexion;
     QGraphicsSimpleTextItem *texteExemple;
 
 private:

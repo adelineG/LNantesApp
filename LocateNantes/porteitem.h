@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <diagramscene.h>
 
-class PorteItem : public QGraphicsPathItem
+class PorteItem : public QGraphicsEllipseItem
 {
 public:
     PorteItem(DiagramScene *ds);

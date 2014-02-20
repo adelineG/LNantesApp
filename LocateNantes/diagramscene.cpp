@@ -45,6 +45,9 @@
 #include "batimentitem.h"
 #include "couloiritem.h"
 #include "porteitem.h"
+#include "escalieritem.h"
+#include "ascenseuritem.h"
+#include "connexionitem.h"
 #include <QPainter>
 
 static const int GRID_STEP = 30;
@@ -64,6 +67,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
+
 
 }
 //! [0]
@@ -100,6 +104,28 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         return;
     QGraphicsScene::mousePressEvent(mouseEvent);
 
+
+    if (myMode == AddEscalier){
+
+        escalier = new EscalierItem(this);
+        escalier->setPixmap(QPixmap(":/images/escalier.png").scaled(30,30));
+        escalier->setPos(mouseEvent->scenePos());
+        addItem(escalier);
+    }
+    if (myMode == AddAscenseur){
+
+        escalier = new EscalierItem(this);
+        escalier->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
+        escalier->setPos(mouseEvent->scenePos());
+        addItem(escalier);
+    }
+    if (myMode == AddConnexion){
+
+        escalier = new EscalierItem(this);
+        escalier->setPixmap(QPixmap(":/images/Sortie.png").scaled(30,30));
+        escalier->setPos(mouseEvent->scenePos());
+        addItem(escalier);
+    }
     startPoint = mouseEvent->scenePos();
 
 }
@@ -156,12 +182,14 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (myMode==AddBatiment){
 
         bat = new BatimentItem(this);
-        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
+        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         bat->setPos(startPoint);
         addItem(bat);
     }
+
     /*************************************************************************************************/
-    else if(myMode == AddCouloir){
+    if(myMode == AddCouloir){
         QPointF offx = startPoint;
         QPointF offy = mouseEvent->scenePos();
         int testx = abs(offy.x()-offx.x());
@@ -179,7 +207,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             offy += QPointF(0,40);
         }
 
-
+        /*
         coulS = new CouloirItem(this);
         coulI = new CouloirItem(this);
         coulS->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
@@ -189,8 +217,55 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         coulS->setPos(startPoint);
         coulI->setPos(offx);
         addItem(coulS);
+        addItem(coulI);*/
+        coulI = new CouloirItem(this);
+        coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+        coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        coulI->setPos(startPoint);
         addItem(coulI);
     }
+
+    if(myMode == AddPorte){
+
+
+        QPointF offxh = startPoint;
+        QPointF offxv = startPoint;
+        QPointF offyv = mouseEvent->scenePos();
+        QPointF offyh = mouseEvent->scenePos();
+        int testx = abs(mouseEvent->scenePos().x()-startPoint.x());
+        int testy = abs(mouseEvent->scenePos().y()-startPoint.y());
+        int distance = (sqrt((testx*testx)+(testy*testy)))*0.25;
+
+
+        if( testx <= testy ){
+            offxh -= QPoint(distance,0);
+            offxv += QPoint(distance,0);
+            offyh -= QPoint(distance,0);
+            offyv += QPoint(distance,0);
+        }
+        else
+        {
+            offxh -= QPoint(0,distance);
+            offxv += QPoint(0,distance);
+            offyh -= QPoint(0,distance);
+            offyv += QPoint(0,distance);
+        }
+
+        porteG = new PorteItem(this);
+        porteD = new PorteItem(this);
+        porteG->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
+        porteG->setPos(startPoint);
+        porteG->setBrush(QBrush(Qt::green));
+        porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
+        porteD->setBrush(QBrush(Qt::green));
+        porteD->setPos(mouseEvent->scenePos());
+        addItem(porteG);
+        addItem(porteD);
+
+
+    }
+
+
     /***************************************************************************************/
 
 
