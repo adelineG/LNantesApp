@@ -305,7 +305,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     //! [12] //! [13]
 
     /*************************************************************************************************/
-    // si on est en mode bâtiment, il n'y a rien à faire, sinon, changer de mode
+    // si on est en mode construction, il n'y a rien à faire, à part changer de mode
     myMode = MoveItem;
     /***************************************************************************************/
 }
