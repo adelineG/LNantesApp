@@ -113,6 +113,8 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *ascenseurWidget = new QWidget;
     ascenseurWidget->setLayout(ascenseurLayout);
     accesLayout->addWidget(ascenseurWidget, 1, 0);
+
+      connect(ascenseurButton,SIGNAL(clicked()),this,SLOT(ouvrirAscenseur()));
    /******************************* bouton ascenseur *******************************************************/
 
     /******************************* bouton connexion *******************************************************/
@@ -133,7 +135,7 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
 
    /******************************* bouton connexion *******************************************************/
 
-    /******************************* bouton connexion *******************************************************/
+    /******************************* bouton label *******************************************************/
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
     buttonGroup->addButton(textButton, Construction::Label);
@@ -177,11 +179,18 @@ void ChoixConstruction::ouvrirPorte(){
 void ChoixConstruction::ouvrirEscalier(){
     EscalierFenetre *formulaire = new EscalierFenetre();
     formulaire->show();
+    main->getScene()->setMode(DiagramScene::AddEscalier);
+}
+
+void ChoixConstruction::ouvrirAscenseur(){
+
+    main->getScene()->setMode(DiagramScene::AddAscenseur);
 }
 
 void ChoixConstruction::ouvrirConnexion(){
     FenetreConnexion *formulaire = new FenetreConnexion();
     formulaire->show();
+    main->getScene()->setMode(DiagramScene::AddConnexion);
 }
 
 void ChoixConstruction::ouvrirEtage(){

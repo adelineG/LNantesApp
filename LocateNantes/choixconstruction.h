@@ -23,6 +23,7 @@ public slots:
     void ouvrirEtage();
     void ouvrirCouloir();
     void ouvrirPorte();
+    void ouvrirAscenseur();
 
     private:
     QButtonGroup* buttonGroup;

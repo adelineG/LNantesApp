@@ -45,6 +45,9 @@
 #include "batimentitem.h"
 #include "couloiritem.h"
 #include "porteitem.h"
+#include "escalieritem.h"
+#include "ascenseuritem.h"
+#include "connexionitem.h"
 #include <QPainter>
 
 static const int GRID_STEP = 30;
@@ -64,6 +67,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
+
 
 }
 //! [0]
@@ -100,6 +104,28 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         return;
     QGraphicsScene::mousePressEvent(mouseEvent);
 
+
+    if (myMode == AddEscalier){
+
+        escalier = new EscalierItem(this);
+        escalier->setPixmap(QPixmap(":/images/escalier.png").scaled(30,30));
+        escalier->setPos(mouseEvent->scenePos());
+        addItem(escalier);
+    }
+    if (myMode == AddAscenseur){
+
+        escalier = new EscalierItem(this);
+        escalier->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
+        escalier->setPos(mouseEvent->scenePos());
+        addItem(escalier);
+    }
+    if (myMode == AddConnexion){
+
+        escalier = new EscalierItem(this);
+        escalier->setPixmap(QPixmap(":/images/Sortie.png").scaled(30,30));
+        escalier->setPos(mouseEvent->scenePos());
+        addItem(escalier);
+    }
     startPoint = mouseEvent->scenePos();
 
 }
@@ -197,9 +223,9 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         addItem(coulI);*/
         coulI = new CouloirItem(this);
         coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-         coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-         coulI->setPos(startPoint);
-         addItem(coulI);
+        coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        coulI->setPos(startPoint);
+        addItem(coulI);
     }
 
     if(myMode == AddPorte){
@@ -241,6 +267,8 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 
     }
+
+
     /***************************************************************************************/
 
 

@@ -20,7 +20,10 @@ HEADERS += arrow.h \
            fenetreconnexion.h \
            fenetreetage.h \
            mainwindow.h \
-           porteitem.h
+           porteitem.h \
+    escalieritem.h \
+    ascenseuritem.h \
+    connexionitem.h
 SOURCES += arrow.cpp \
            batimentitem.cpp \
            choixconstruction.cpp \
@@ -34,5 +37,8 @@ SOURCES += arrow.cpp \
            fenetreetage.cpp \
            main.cpp \
            mainwindow.cpp \
-           porteitem.cpp
+           porteitem.cpp \
+    escalieritem.cpp \
+    ascenseuritem.cpp \
+    connexionitem.cpp
 RESOURCES += diagramscene.qrc LocateNantes.qrc
