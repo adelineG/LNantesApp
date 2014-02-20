@@ -69,7 +69,15 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton)
         return;
     QGraphicsScene::mousePressEvent(mouseEvent);
+    startPoint = mouseEvent->scenePos();
 
+    if (myMode==AddBatiment){
+        bat = new BatimentItem(this);
+        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
+        bat->setPos(startPoint);
+	addItem(bat);
+    }
 
     if (myMode == AddEscalier){
         EscalierFenetre *formulaire = new EscalierFenetre();
@@ -94,7 +102,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         escalier->setPos(mouseEvent->scenePos());
         addItem(escalier);
     }
-    startPoint = mouseEvent->scenePos();
 
 }
 //! [9]
@@ -107,6 +114,12 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         line->setLine(newLine);
     } else if (myMode == MoveItem) {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
+    }
+
+    if (myMode==AddBatiment){
+        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
+        bat->setPos(startPoint);
     }
 }
 //! [10]
@@ -149,11 +162,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     /*************************************************************************************************/
     if (myMode==AddBatiment){
 
-        bat = new BatimentItem(this);
-        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-        bat->setPos(startPoint);
-        addItem(bat);
+	//validé !
     }
 
     /*************************************************************************************************/
