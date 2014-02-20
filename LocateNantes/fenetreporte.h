@@ -10,12 +10,16 @@ class FenetrePorte : public QWidget
     Q_OBJECT
 public:
     FenetrePorte();
-
+    void setNomSalle(QString n){nomSalle=n;}
+    void setCapaciteSalle(QString c){cap=c;}
+    QString getNomSalle(){return nomSalle;}
+    QString getCapaciteSalle(){return cap;}
 
 private:
     QLineEdit *nom;
     QLineEdit *capacite;
-
+    QString nomSalle;
+    QString cap;
     QPushButton *valider;
     QPushButton *annuler;
 

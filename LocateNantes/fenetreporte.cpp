@@ -4,6 +4,7 @@
 #include "QFormLayout"
 #include "QGroupBox"
 #include "QMessageBox"
+#include <QDebug>
 
 FenetrePorte::FenetrePorte()
 
@@ -49,5 +50,8 @@ void FenetrePorte::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de la salle");
             return; // Arrêt de la méthode
         }
+        nomSalle=nom->text();
+        cap=capacite->text();
+        qDebug()<< nomSalle ;
         this->close();
 }
