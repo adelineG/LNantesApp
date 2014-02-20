@@ -23,7 +23,8 @@ HEADERS += arrow.h \
            porteitem.h \
     escalieritem.h \
     ascenseuritem.h \
-    connexionitem.h
+    connexionitem.h \
+    cloisonitem.h
 SOURCES += arrow.cpp \
            batimentitem.cpp \
            choixconstruction.cpp \
@@ -40,5 +41,6 @@ SOURCES += arrow.cpp \
            porteitem.cpp \
     escalieritem.cpp \
     ascenseuritem.cpp \
-    connexionitem.cpp
+    connexionitem.cpp \
+    cloisonitem.cpp
 RESOURCES += diagramscene.qrc LocateNantes.qrc

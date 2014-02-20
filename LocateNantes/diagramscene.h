@@ -66,6 +66,7 @@ class PorteItem;
 class EscalierItem;
 class ConnexionItem;
 class AscenseurItem;
+class CloisonItem;
 
 //! [0]
 class DiagramScene : public QGraphicsScene
@@ -73,7 +74,7 @@ class DiagramScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte, AddEscalier, AddAscenseur, AddConnexion};
+    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte, AddEscalier, AddAscenseur, AddConnexion, AddCloison};
 
     DiagramScene(QMenu *itemMenu , QObject *parent = 0);
 
@@ -104,6 +105,7 @@ protected:
     EscalierItem* escalier;
     AscenseurItem* ascenseur;
     ConnexionItem* connexion;
+    CloisonItem* cloison;
     QGraphicsSimpleTextItem *texteExemple;
 
 private:
