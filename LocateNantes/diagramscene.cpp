@@ -14,6 +14,7 @@
 #include "fenetreconnexion.h"
 #include "fenetreetage.h"
 #include "cloisonitem.h"
+#include "fenetreporte.h"
 #include <QPainter>
 
 static const int GRID_STEP = 30;
@@ -135,7 +136,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     if(myMode == AddPorte){
 
-
+        FenetrePorte *fen = new FenetrePorte();
+        fen->show();
         QPointF offxh = startPoint;
         QPointF offxv = startPoint;
         QPointF offyv = mouseEvent->scenePos();
