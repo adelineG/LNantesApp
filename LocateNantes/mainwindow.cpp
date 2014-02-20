@@ -231,7 +231,8 @@ void MainWindow::createToolBox()
 {
 //! [22]
     toolBoxDock = new QDockWidget;
-    ChoixConstruction* toolBox = new ChoixConstruction(this,toolBoxDock);
+    ChoixConstruction* toolBox = new ChoixConstruction(toolBoxDock);
+    toolBox->setMainWindow(this);
     toolBoxDock->setWidget(toolBox);
 }
 //! [22]

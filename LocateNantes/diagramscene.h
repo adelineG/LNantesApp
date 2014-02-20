@@ -69,7 +69,7 @@ class DiagramScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir };
+    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte};
 
     DiagramScene(QMenu *itemMenu , QObject *parent = 0);
 

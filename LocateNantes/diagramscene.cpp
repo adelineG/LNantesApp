@@ -163,8 +163,9 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         bat->setPos(startPoint);
         addItem(bat);
     }
+    qDebug()<< myMode;
     /*************************************************************************************************/
-    else if(myMode == AddCouloir){
+    if(myMode == AddCouloir){
         QPointF offx = startPoint;
         QPointF offy = mouseEvent->scenePos();
         int testx = abs(offy.x()-offx.x());
