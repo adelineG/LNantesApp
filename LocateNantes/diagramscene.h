@@ -47,6 +47,7 @@
 #include "batimentitem.h"
 #include "couloiritem.h"
 #include "porteitem.h"
+#include "labelitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -67,6 +68,7 @@ class EscalierItem;
 class ConnexionItem;
 class AscenseurItem;
 class CloisonItem;
+class LabelItem;
 
 //! [0]
 class DiagramScene : public QGraphicsScene
@@ -77,12 +79,14 @@ public:
     enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte, AddEscalier, AddAscenseur, AddConnexion, AddCloison};
 
     DiagramScene(QMenu *itemMenu , QObject *parent = 0);
+    LabelItem* label;
 
 public slots:
     void setMode(Mode mode);
     Mode getMode (){return myMode;}
     void setItemType(DiagramItem::DiagramType type);
     void editorLostFocus(DiagramTextItem *item);
+
 
 signals:
     void itemInserted(DiagramItem *item);
@@ -108,6 +112,8 @@ protected:
     CloisonItem* cloison;
     QGraphicsSimpleTextItem *texteExemple;
     QGraphicsItem* itemEnDeplacement;
+
+
 
 private:
     bool isItemChange(int type);

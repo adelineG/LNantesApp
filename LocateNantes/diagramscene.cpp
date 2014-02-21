@@ -1,7 +1,7 @@
 
 
 #include <QtGui>
-
+#include "diagramtextitem.h"
 #include "diagramscene.h"
 #include "arrow.h"
 #include "batimentitem.h"
@@ -15,6 +15,7 @@
 #include "fenetreetage.h"
 #include "cloisonitem.h"
 #include "fenetreporte.h"
+#include "labelitem.h"
 #include <QPainter>
 
 static const int GRID_STEP = 30;
@@ -72,23 +73,27 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     QGraphicsScene::mousePressEvent(mouseEvent);
     startPoint = mouseEvent->scenePos();
 
-    if (myMode == MoveItem) {
-	itemEnDeplacement = this->itemAt(startPoint);
-	if (itemEnDeplacement != NULL) {
-	    offsetPointer = startPoint - itemEnDeplacement->pos();
-	}
-	emit itemSelected(itemEnDeplacement);
+    switch (myMode) {
+    case MoveItem:
+    {
+        itemEnDeplacement = this->itemAt(startPoint);
+        if (itemEnDeplacement != NULL) {
+            offsetPointer = startPoint - itemEnDeplacement->pos();
+        }
+        emit itemSelected(itemEnDeplacement);
     }
-
-    if (myMode==AddBatiment){
+        break;
+    case AddBatiment:
+    {
         bat = new BatimentItem(this);
         bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
-	addItem(bat);
+        addItem(bat);
     }
-
-    if (myMode == AddEscalier){
+        break;
+    case AddEscalier:
+    {
         EscalierFenetre *formulaire = new EscalierFenetre();
         formulaire->show();
         escalier = new EscalierItem(this);
@@ -96,14 +101,19 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         escalier->setPos(mouseEvent->scenePos());
         addItem(escalier);
     }
-    if (myMode == AddAscenseur){
+        break;
 
+    case AddAscenseur:
+    {
         escalier = new EscalierItem(this);
         escalier->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
         escalier->setPos(mouseEvent->scenePos());
         addItem(escalier);
     }
-    if (myMode == AddConnexion){
+        break ;
+
+    case AddConnexion:
+    {
         FenetreConnexion *formulaire = new FenetreConnexion();
         formulaire->show();
         escalier = new EscalierItem(this);
@@ -111,8 +121,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         escalier->setPos(mouseEvent->scenePos());
         addItem(escalier);
     }
+        break;
 
-    if(myMode == AddCouloir){
+    case AddCouloir:
+    {
         QPointF offx = startPoint;
         QPointF offy = mouseEvent->scenePos();
         int testx = abs(offy.x()-offx.x());
@@ -135,10 +147,9 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         coulI->setPos(startPoint);
         addItem(coulI);
     }
-
-    if(myMode == AddPorte){
-
-
+        break;
+    case AddPorte:
+    {
         QPointF offxh = startPoint;
         QPointF offxv = startPoint;
         QPointF offyv = mouseEvent->scenePos();
@@ -172,18 +183,44 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         porteD->setPos(mouseEvent->scenePos());
         addItem(porteG);
         addItem(porteD);
-
-
     }
+        break;
 
-    if(myMode == AddCloison){
+    case AddCloison:
+    {
         cloison = new CloisonItem(this);
         cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         cloison->setPos(startPoint);
         addItem(cloison);
     }
+        break;
+
+    case InsertText :
+    {
+        textItem = new DiagramTextItem();
+        textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+        textItem->setZValue(1000.0);
+        connect(textItem, SIGNAL(lostFocus(DiagramTextItem*)),
+                this, SLOT(editorLostFocus(DiagramTextItem*)));
+        connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
+                this, SIGNAL(itemSelected(QGraphicsItem*)));
+        addItem(textItem);
+        textItem->setPos(mouseEvent->scenePos());
+        emit textInserted(textItem);
+    }
+    default:
+        break;
+    }
 }
+
+
+
+
+
+
+
+
 //! [9]
 
 //! [10]
@@ -194,8 +231,8 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         line->setLine(newLine);
     } else if (myMode == MoveItem) {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
-	if (itemEnDeplacement != NULL)
-	    itemEnDeplacement->setPos(mouseEvent->scenePos()-offsetPointer);
+        if (itemEnDeplacement != NULL)
+            itemEnDeplacement->setPos(mouseEvent->scenePos()-offsetPointer);
     }
 
     if (myMode==AddBatiment){
@@ -272,18 +309,18 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     if(myMode==AddPorte){
 
-        FenetrePorte *fen = new FenetrePorte();
+        label= new LabelItem(this);
+        FenetrePorte *fen = new FenetrePorte(this);
         fen->show();
-
-        QGraphicsSimpleTextItem *label= new QGraphicsSimpleTextItem();
-        label->setText(fen->getNomSalle());
-        label->setPos(mouseEvent->pos());
+        label->setPos(QPointF(mouseEvent->scenePos().x()+20,mouseEvent->scenePos().y()-20));
+        qDebug()<< label->text();
         addItem(label);
+
     }
 
 
     if (myMode == MoveItem)
-	itemEnDeplacement = NULL;
+        itemEnDeplacement = NULL;
 
     if (line != 0 && myMode == InsertLine) {
         QList<QGraphicsItem *> startItems = items(line->line().p1());

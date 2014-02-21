@@ -6,9 +6,10 @@
 #include "QMessageBox"
 #include <QDebug>
 
-FenetrePorte::FenetrePorte()
+FenetrePorte::FenetrePorte(DiagramScene *ds)
 
 {
+    parent=ds;
     nom = new QLineEdit;
     capacite = new QLineEdit;
 
@@ -52,6 +53,7 @@ void FenetrePorte::sauvegarder()
         }
         nomSalle=nom->text();
         cap=capacite->text();
-        qDebug()<< nomSalle ;
+        parent->label->setText(nomSalle);
+
         this->close();
 }

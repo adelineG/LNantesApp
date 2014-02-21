@@ -96,12 +96,12 @@ void MainWindow::deleteItem()
     }
 
     foreach (QGraphicsItem *item, scene->selectedItems()) {
-         if (item->type() == DiagramItem::Type) {
-             qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
-         }
-         scene->removeItem(item);
-         delete item;
-     }
+        if (item->type() == DiagramItem::Type) {
+            qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
+        }
+        scene->removeItem(item);
+        delete item;
+    }
 }
 //! [3]
 
@@ -124,7 +124,7 @@ void MainWindow::bringToFront()
     qreal zValue = 0;
     foreach (QGraphicsItem *item, overlapItems) {
         if (item->zValue() >= zValue &&
-            item->type() == DiagramItem::Type)
+                item->type() == DiagramItem::Type)
             zValue = item->zValue() + 0.1;
     }
     selectedItem->setZValue(zValue);
@@ -143,7 +143,7 @@ void MainWindow::sendToBack()
     qreal zValue = 0;
     foreach (QGraphicsItem *item, overlapItems) {
         if (item->zValue() <= zValue &&
-            item->type() == DiagramItem::Type)
+                item->type() == DiagramItem::Type)
             zValue = item->zValue() - 0.1;
     }
     selectedItem->setZValue(zValue);
@@ -155,14 +155,14 @@ void MainWindow::itemInserted(DiagramItem *item)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
- //   buttonGroup->button(int(item->diagramType()))->setChecked(false);
+    //   buttonGroup->button(int(item->diagramType()))->setChecked(false);
 }
 //! [7]
 
 //! [8]
 void MainWindow::textInserted(QGraphicsTextItem *)
 {
-  //  buttonGroup->button(InsertTextButton)->setChecked(false);
+    //  buttonGroup->button(InsertTextButton)->setChecked(false);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
 }
 //! [8]
@@ -182,18 +182,17 @@ void MainWindow::sceneScaleChanged(const QString &scale)
 //! [19]
 void MainWindow::itemSelectionChanged(QGraphicsItem *item)
 {
-    DiagramTextItem *textItem =
-    qgraphicsitem_cast<DiagramTextItem *>(item);
+    DiagramTextItem *textItem = qgraphicsitem_cast<DiagramTextItem *>(item);
 
     if (item == NULL) {
-	statusBar->clearMessage();
-	return;
+        statusBar->clearMessage();
+        return;
     }
 
 
-    if (item->type() == QGraphicsItem::UserType + 1){ //Batiment 
-	BatimentItem *bat = static_cast<BatimentItem*>(item);
-	statusBar->showMessage(QString::fromUtf8("Bât. ") + bat->nom() + QString::fromUtf8(" - ") + QString::number(bat->nbEtages()) + QString::fromUtf8(" étage(s)"));
+    if (item->type() == QGraphicsItem::UserType + 1){ //Batiment
+        BatimentItem *bat = static_cast<BatimentItem*>(item);
+        statusBar->showMessage(QString::fromUtf8("Bât. ") + bat->nom() + QString::fromUtf8(" - ") + QString::number(bat->nbEtages()) + QString::fromUtf8(" étage(s)"));
     }
 }
 //! [19]
@@ -206,27 +205,42 @@ void MainWindow::about()
 }
 //! [20]
 void MainWindow::ouvrirBatiment(){
-    qDebug()<< "je passe par la ";
-    /*FenetreBat *formulaire = new FenetreBat();
+    FenetreBat *formulaire = new FenetreBat();
     formulaire->show();
-    scene->setMode(DiagramScene::AddBatiment);*/
-
+    scene->setMode(DiagramScene::AddBatiment);
 }
 
 void MainWindow::ouvrirCouloir(){
-     scene->setMode(DiagramScene::AddCouloir);
+    scene->setMode(DiagramScene::AddCouloir);
 }
 
 void MainWindow::ouvrirEscalier(){
     EscalierFenetre *formulaire = new EscalierFenetre();
     formulaire->show();
-
+    scene->setMode(DiagramScene::AddEscalier);
 }
 
 void MainWindow::ouvrirConnexion(){
     FenetreConnexion *formulaire = new FenetreConnexion();
     formulaire->show();
+    scene->setMode(DiagramScene::AddConnexion);
 }
+
+void MainWindow::ouvrirPorte(){
+    scene->setMode(DiagramScene::AddPorte);
+}
+
+void MainWindow::ouvrirCloison(){
+    scene->setMode(DiagramScene::AddCloison);
+}
+
+
+void MainWindow::ouvrirAscenseur(){
+
+    scene->setMode(DiagramScene::AddAscenseur);
+}
+
+
 
 void MainWindow::ouvrirEtage(){
     FenetreEtage *formulaire = new FenetreEtage();
@@ -242,7 +256,7 @@ void MainWindow::createStatusBar()
 //! [21]
 void MainWindow::createToolBox()
 {
-//! [22]
+    //! [22]
     toolBoxDock = new QDockWidget;
     ChoixConstruction* toolBox = new ChoixConstruction(toolBoxDock);
     toolBox->setMainWindow(this);
@@ -263,28 +277,32 @@ void MainWindow::createActions()
 
 
     actionPorte = new QAction("&Porte", this);
-    actionContour = new QAction("&Contour", this);
-    actionMur = new QAction("&Mur", this);
+    connect(actionPorte,SIGNAL(triggered()),this,SLOT(ouvrirPorte()));
+
+    actionCloison = new QAction("&Cloison", this);
     actionEscalier = new QAction("&Escalier", this);
+    connect(actionEscalier,SIGNAL(triggered()),this,SLOT(ouvrirEscalier()));
     actionAscenseur = new QAction("&Ascenseur", this);
+     connect(actionAscenseur,SIGNAL(triggered()),this,SLOT(ouvrirAscenseur()));
     actionConnexion = new QAction("&Connexion", this);
+     connect(actionConnexion,SIGNAL(triggered()),this,SLOT(ouvrirConnexion()));
 
-     actionEtage = new QAction("&Etage", this);
-     connect(actionEtage, SIGNAL(triggered()),this, SLOT(ouvrirEtage()));
+    actionEtage = new QAction("&Etage", this);
+    connect(actionEtage, SIGNAL(triggered()),this, SLOT(ouvrirEtage()));
 
-     actionNouveauBatiment = new QAction("&Nouveau", this);
-     actionChoisirBatiment = new QAction("&Choisir", this);
+    actionNouveauBatiment = new QAction("&Nouveau", this);
+    connect(actionNouveauBatiment,SIGNAL(triggered()),this,SLOT(ouvrirBatiment()));
 
-     actionVueEnsemble = new QAction("&Vue d'ensemble", this);
+    actionVueEnsemble = new QAction("&Vue d'ensemble", this);
     /**********************************************************/
 
-     toFrontAction = new QAction(QIcon(":/images/bringtofront.png"),
-                                 tr("Bring to &Front"), this);
-     toFrontAction->setShortcut(tr("Ctrl+F"));
-     toFrontAction->setStatusTip(tr("Bring item to front"));
-     connect(toFrontAction, SIGNAL(triggered()),
-             this, SLOT(bringToFront()));
- //! [23]
+    toFrontAction = new QAction(QIcon(":/images/bringtofront.png"),
+                                tr("Bring to &Front"), this);
+    toFrontAction->setShortcut(tr("Ctrl+F"));
+    toFrontAction->setStatusTip(tr("Bring item to front"));
+    connect(toFrontAction, SIGNAL(triggered()),
+            this, SLOT(bringToFront()));
+    //! [23]
 
 
     sendBackAction = new QAction(QIcon(":/images/sendtoback.png"),
@@ -292,14 +310,14 @@ void MainWindow::createActions()
     sendBackAction->setShortcut(tr("Ctrl+B"));
     sendBackAction->setStatusTip(tr("Send item to back"));
     connect(sendBackAction, SIGNAL(triggered()),
-        this, SLOT(sendToBack()));
+            this, SLOT(sendToBack()));
 
     deleteAction = new QAction(QIcon(":/images/delete.png"),
                                tr("&Delete"), this);
     deleteAction->setShortcut(tr("Delete"));
     deleteAction->setStatusTip(tr("Delete item from diagram"));
     connect(deleteAction, SIGNAL(triggered()),
-        this, SLOT(deleteItem()));
+            this, SLOT(deleteItem()));
 
     exitAction = new QAction(tr("E&xit"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
@@ -326,22 +344,17 @@ void MainWindow::createMenus()
 
     //menu edition
     menuEdition = menuBar()->addMenu("&Edition");
+    menuBatiment = menuEdition->addMenu("&Batiment");
+    menuBatiment->addAction(actionNouveauBatiment);
+   // menuBatiment->addAction(actionChoisirBatiment);
     menuConstruction = menuEdition->addMenu("&Construction");
     menuConstruction->addAction(actionPorte);
-    menuConstruction->addAction(actionContour);
-    menuConstruction->addAction(actionMur);
+    menuConstruction->addAction(actionCloison);
     menuConstruction->addAction(actionEscalier);
     menuConstruction->addAction(actionAscenseur);
     menuConstruction->addAction(actionConnexion);
     //
-
     menuEdition->addAction(actionEtage);
-    //
-    menuBatiment = menuEdition->addMenu("&Batiment");
-
-    menuBatiment->addAction(actionNouveauBatiment);
-    menuBatiment->addAction(actionChoisirBatiment);
-
     // menu affichage
     menuAffichage = menuBar()->addMenu("&Affichage");
 
@@ -352,7 +365,7 @@ void MainWindow::createMenus()
 //! [25]
 void MainWindow::createToolbars()
 {
-//! [25]
+    //! [25]
     editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(deleteAction);
     editToolBar->addAction(toFrontAction);
@@ -385,7 +398,7 @@ void MainWindow::createToolbars()
     pointerToolbar->addWidget(pointerButton);
     pointerToolbar->addWidget(linePointerButton);
     pointerToolbar->addWidget(sceneScaleCombo);
-//! [27]
+    //! [27]
 }
 //! [27]
 

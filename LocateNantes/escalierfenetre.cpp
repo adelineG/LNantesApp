@@ -82,7 +82,7 @@ EscalierFenetre::EscalierFenetre()
 void EscalierFenetre::sauvegarder()
 {
     // On vérifie que le nom de la classe n'est pas vide, sinon on arrête
-        if (nom->text().isEmpty())
+        if (nom->text().isEmpty()&& !radio2->isChecked())
         {
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de l'escalier pour valider");
             return; // Arrêt de la méthode

@@ -91,6 +91,9 @@ private slots:
     void ouvrirConnexion();
     void ouvrirEtage();
     void ouvrirCouloir();
+    void ouvrirAscenseur();
+    void ouvrirCloison();
+    void ouvrirPorte();
 
 private:
     void createToolBox();
@@ -122,14 +125,12 @@ private:
     QAction *actionSauvegarder;
 
     QAction *actionPorte;
-    QAction *actionContour;
-    QAction *actionMur;
+    QAction *actionCloison;
     QAction *actionEscalier;
     QAction *actionAscenseur;
     QAction *actionConnexion;
     QAction *actionEtage;
     QAction *actionNouveauBatiment;
-    QAction *actionChoisirBatiment;
     QAction *actionEchelle;
     QAction *actionVueEnsemble;
 

@@ -4,18 +4,20 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QPushButton>
+#include "diagramscene.h"
 
 class FenetrePorte : public QWidget
 {
     Q_OBJECT
 public:
-    FenetrePorte();
+    FenetrePorte(DiagramScene *ds);
     void setNomSalle(QString n){nomSalle=n;}
     void setCapaciteSalle(QString c){cap=c;}
     QString getNomSalle(){return nomSalle;}
     QString getCapaciteSalle(){return cap;}
 
 private:
+    DiagramScene *parent;
     QLineEdit *nom;
     QLineEdit *capacite;
     QString nomSalle;
