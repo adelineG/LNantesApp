@@ -35,6 +35,14 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
+    listBatiment = new  QList <BatimentItem*>();
+    listeCouloir = new  QList <CouloirItem*> ();
+    listePorte= new QList <PorteItem*,PorteItem*>();
+    listeEscalier = new  QList <EscalierItem*> ();
+    listeConnexion=new QList <ConnexionItem*> ();
+    listeAscenseur= new QList <AscenseurItem*> ();
+    listeCloison = new QList <CloisonItem*>();
+    listeLabel = new QList <LabelItem*> ();
 
 
 }
@@ -85,41 +93,47 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
     case AddBatiment:
     {
-        bat = new BatimentItem(this);
-        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
+        listBatiment.push_front(bat);
         addItem(bat);
     }
         break;
     case AddEscalier:
     {
-        EscalierFenetre *formulaire = new EscalierFenetre();
-        formulaire->show();
         escalier = new EscalierItem(this);
         escalier->setPixmap(QPixmap(":/images/escalier.png").scaled(30,30));
         escalier->setPos(mouseEvent->scenePos());
+
+        EscalierFenetre *formulaire = new EscalierFenetre(this);
+        formulaire->show();
+        listeEscalier.push_front(escalier);
         addItem(escalier);
     }
         break;
 
     case AddAscenseur:
     {
-        escalier = new EscalierItem(this);
-        escalier->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
-        escalier->setPos(mouseEvent->scenePos());
-        addItem(escalier);
+        ascenseur = new EscalierItem(this);
+        ascenseur->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
+        ascenseur->setPos(mouseEvent->scenePos());
+        listeAscenseur.push_front(ascenseur);
+        addItem(ascenseur);
     }
         break ;
 
     case AddConnexion:
     {
-        FenetreConnexion *formulaire = new FenetreConnexion();
+        connexion = new ConnexionItem(this);
+        connexion->setPixmap(QPixmap(":/images/Sortie.png").scaled(30,30));
+        connexion->setPos(mouseEvent->scenePos());
+
+        FenetreConnexion *formulaire = new FenetreConnexion(this);
         formulaire->show();
-        escalier = new EscalierItem(this);
-        escalier->setPixmap(QPixmap(":/images/Sortie.png").scaled(30,30));
-        escalier->setPos(mouseEvent->scenePos());
-        addItem(escalier);
+
+
+        listeConnexion.push_front(connexion);
+        addItem(connexion);
     }
         break;
 
@@ -145,6 +159,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         coulI->setPos(startPoint);
+        listeCouloir.push_front(coulI);
         addItem(coulI);
     }
         break;
@@ -181,6 +196,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
         porteD->setBrush(QBrush(Qt::green));
         porteD->setPos(mouseEvent->scenePos());
+        listePorte.push_front(porteD,porteG);
         addItem(porteG);
         addItem(porteD);
     }
@@ -192,6 +208,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         cloison->setPos(startPoint);
+        listeCloison.push_front(cloison);
         addItem(cloison);
     }
         break;
@@ -205,8 +222,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 this, SLOT(editorLostFocus(DiagramTextItem*)));
         connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
                 this, SIGNAL(itemSelected(QGraphicsItem*)));
+
         addItem(textItem);
         textItem->setPos(mouseEvent->scenePos());
+        listeLabel.push_front(textItem);
         emit textInserted(textItem);
     }
     default:
@@ -215,7 +234,16 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 }
 
 
+void DiagramScene::ouvrirFenetrePopUp(){
 
+    if (myMode == AddBatiment) {
+        bat = new BatimentItem(this);
+        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
+        FenetreBat *formulaire = new FenetreBat();
+        formulaire->show();
+    }
+}
 
 
 
@@ -313,7 +341,6 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         FenetrePorte *fen = new FenetrePorte(this);
         fen->show();
         label->setPos(QPointF(mouseEvent->scenePos().x()+20,mouseEvent->scenePos().y()-20));
-        qDebug()<< label->text();
         addItem(label);
 
     }

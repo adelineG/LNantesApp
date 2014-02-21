@@ -14,6 +14,8 @@ class BatimentItem : public QGraphicsRectItem
 public:
     BatimentItem(DiagramScene*);
    // void paint(QPainter& ,const QPointF &, const QPointF &)const ;
+    void setNom(QString n) {_nom=n;}
+    void setEtage(QString i){etage_cur=i;}
     QString nom() const { return _nom; }
     int nbEtages() const { return _nbEtages; }
     int type() const { return Type; }
@@ -24,6 +26,7 @@ protected:
 private:
     QImage image;
     QPainter painter;
+    QString etage_cur;
     QString _nom;
     int _nbEtages;
 

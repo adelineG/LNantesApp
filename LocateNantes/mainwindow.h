@@ -44,6 +44,7 @@
 #include <QMainWindow>
 #include <QDockWidget>
 #include "diagramitem.h"
+#include "planmodel.h"
 
 
 
@@ -62,6 +63,7 @@ class QToolButton;
 class QAbstractButton;
 class QGraphicsView;
 class DiagramScene;
+class PlanModel;
 QT_END_NAMESPACE
 
 //! [0]
@@ -74,6 +76,7 @@ public:
    DiagramScene* getScene() const {return scene;}
    void setScene(DiagramScene* sc){scene=sc;}
    DiagramScene *scene;
+   PlanModel *plan;
 
 private slots:
     //void backgroundButtonGroupClicked(QAbstractButton *button);
@@ -101,6 +104,7 @@ private:
     void createMenus();
     void createToolbars();
     void createStatusBar();
+    void sauvegardePlan();
     
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
     QIcon createColorToolButtonIcon(const QString &image, QColor color);

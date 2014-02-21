@@ -6,7 +6,7 @@
 #include "QMessageBox"
 
 
-FenetreBat::FenetreBat()
+FenetreBat::FenetreBat(DiagramScene *ds)
 {
 
     nom = new QLineEdit;
@@ -26,7 +26,7 @@ FenetreBat::FenetreBat()
     boutonsLayout->addWidget(valider);
     boutonsLayout->addWidget(annuler);
 
-    QGroupBox *groupDefinition = new QGroupBox("Definition d'un nouveau batiment :");
+    QGroupBox *groupDefinition = new QGroupBox("Definition d'un nouveau batiment avec etage courant :");
     groupDefinition->setLayout(definitionLayout);
 
     QVBoxLayout *layoutPrincipal = new QVBoxLayout;
@@ -50,5 +50,7 @@ void FenetreBat::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom du batiment");
             return; // Arrêt de la méthode
         }
+        parent->bat->setNom(nom->text());
+        if(!etage->text().isEmpty()) parent->bat->setEtage(etage->text());
         this->close();
 }

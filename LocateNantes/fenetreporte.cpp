@@ -51,9 +51,11 @@ void FenetrePorte::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de la salle");
             return; // Arrêt de la méthode
         }
-        nomSalle=nom->text();
-        cap=capacite->text();
+
+
         parent->label->setText(nomSalle);
+        parent->porteD->getNomSalle(nom->text());
+        parent->porteD->getCapaSalle(capacite->text());
 
         this->close();
 }

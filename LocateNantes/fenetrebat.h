@@ -4,20 +4,24 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QPushButton>
+#include "diagramscene.h"
 
 class FenetreBat : public QWidget
 {
     Q_OBJECT
 public:
-   FenetreBat();
+   FenetreBat(DiagramScene *ds);
 
 
 public slots:
     void sauvegarder();
 
 private:
+    DiagramScene *parent;
+
     QLineEdit *nom;
     QLineEdit *etage;
+
 
     QPushButton *valider;
     QPushButton *annuler;

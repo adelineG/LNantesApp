@@ -48,6 +48,9 @@
 #include "couloiritem.h"
 #include "porteitem.h"
 #include "labelitem.h"
+#include "connexionitem.h"
+#include "escalierfenetre.h"
+#include <QList>
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -58,9 +61,6 @@ class QFont;
 class QGraphicsTextItem;
 class QColor;
 class MainWindow;
-
-QT_END_NAMESPACE
-
 class BatimentItem;
 class CouloirItem;
 class PorteItem;
@@ -69,6 +69,9 @@ class ConnexionItem;
 class AscenseurItem;
 class CloisonItem;
 class LabelItem;
+QT_END_NAMESPACE
+
+
 
 //! [0]
 class DiagramScene : public QGraphicsScene
@@ -77,9 +80,29 @@ class DiagramScene : public QGraphicsScene
 
 public:
     enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte, AddEscalier, AddAscenseur, AddConnexion, AddCloison};
-
+    QString nom;
     DiagramScene(QMenu *itemMenu , QObject *parent = 0);
     LabelItem* label;
+    BatimentItem *bat;
+    CouloirItem *coulS;
+    CouloirItem *coulI;
+    PorteItem *porteG;
+    PorteItem *porteD;
+    EscalierItem* escalier;
+    AscenseurItem* ascenseur;
+    ConnexionItem* connexion;
+    CloisonItem* cloison;
+    QList <BatimentItem*> listBatiment;
+    QList <CouloirItem*> listeCouloir;
+    QList <PorteItem*> listePorte;
+    QList <EscalierItem*> listeEscalier;
+    QList <ConnexionItem*> listeConnexion;
+    QList <AscenseurItem*> listeAscenseur;
+    QList <CloisonItem*> listeCloison;
+    QList <LabelItem*> listeLabel;
+
+    void ouvrirFenetrePopUp();
+
 
 public slots:
     void setMode(Mode mode);
@@ -101,15 +124,6 @@ protected:
     void paintEvent(QPaintEvent*);
 
 
-    BatimentItem *bat;
-    CouloirItem *coulS;
-    CouloirItem *coulI;
-    PorteItem *porteG;
-    PorteItem *porteD;
-    EscalierItem* escalier;
-    AscenseurItem* ascenseur;
-    ConnexionItem* connexion;
-    CloisonItem* cloison;
     QGraphicsSimpleTextItem *texteExemple;
     QGraphicsItem* itemEnDeplacement;
 

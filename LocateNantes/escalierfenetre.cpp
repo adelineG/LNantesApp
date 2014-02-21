@@ -7,10 +7,13 @@
 #include "QString"
 #include "QRadioButton"
 #include "QWidget"
+#include "escalieritem.h"
 
 
-EscalierFenetre::EscalierFenetre()
+EscalierFenetre::EscalierFenetre(DiagramScene *ds)
 {
+    parent=ds;
+
     actifNouveau= false;
     QString name="Batiment 1 Etage 2";
 
@@ -87,6 +90,9 @@ void EscalierFenetre::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de l'escalier pour valider");
             return; // Arrêt de la méthode
         }
+
+        if(!nom->text().isEmpty())parent->escalier->setEtage(nom->text());
+        else parent->escalier->setEtage(nom->text());
         this->close();
 }
 

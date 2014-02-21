@@ -9,11 +9,11 @@
 #include "QWidget"
 
 
-FenetreConnexion::FenetreConnexion()
+FenetreConnexion::FenetreConnexion(DiagramScene *ds)
 {
 
     QString name="Batiment 1 Etage 2";
-
+    parent=ds;
     nom = new QLineEdit;
     etage = new QLineEdit;
 
@@ -83,6 +83,9 @@ void FenetreConnexion::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Vous n'avez renseigne aucun champs");
             return; // Arrêt de la méthode
         }
+        if(!nom->text()) parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text());
+        else parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text()); // ya un souci ici !!!!!
+
         this->close();
 }
 

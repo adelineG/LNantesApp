@@ -162,10 +162,9 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     addItem(backgroundWidget, tr("Acces"));
 }
 
-void ChoixConstruction::ouvrirBatiment(){
-    FenetreBat *formulaire = new FenetreBat();
-    formulaire->show();
+void ChoixConstruction::ouvrirBatiment(){  
     main->getScene()->setMode(DiagramScene::AddBatiment);
+    main->getScene()->ouvrirFenetrePopUp();
 }
 
 void ChoixConstruction::ouvrirCouloir(){
@@ -198,7 +197,4 @@ void ChoixConstruction::ouvrirConnexion(){
     main->getScene()->setMode(DiagramScene::AddConnexion);
 }
 
-void ChoixConstruction::ouvrirEtage(){
-    FenetreEtage *formulaire = new FenetreEtage();
-    formulaire->show();
-}
+

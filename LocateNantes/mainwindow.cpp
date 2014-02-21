@@ -70,7 +70,7 @@ MainWindow::MainWindow()
 
     /**************************** Grid ********************************************/
     view = new QGraphicsView(scene);
-
+    plan = new PlanModel(this);
 
     setCentralWidget(view);
 
@@ -243,8 +243,11 @@ void MainWindow::ouvrirAscenseur(){
 
 
 void MainWindow::ouvrirEtage(){
-    FenetreEtage *formulaire = new FenetreEtage();
+    FenetreEtage *formulaire = new FenetreEtage(this);
     formulaire->show();
+    plan->setListScene(scene);
+    //sauvegarde l autre scene et en créer une nouvelle
+    //DiagramScene *scene = new DiagramScene();
 }
 
 void MainWindow::createStatusBar()
@@ -402,3 +405,8 @@ void MainWindow::createToolbars()
 }
 //! [27]
 
+void MainWindow::sauvegardePlan(){
+    plan->setListScene(scene);
+    //exporter au format xml
+    //exporter au format png
+}

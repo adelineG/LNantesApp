@@ -1,13 +1,14 @@
 #include "fenetreetage.h"
 #include "QMessageBox"
+#include ""
 
 
-FenetreEtage::FenetreEtage ()
+FenetreEtage::FenetreEtage (DiagramScene *ds)
 {
 
     QString name= "Batiment 1 ";
 
-
+    parent=ds;
     etage = new QLineEdit;
 
     radio1 = new QRadioButton(tr("&Inferieur"));
@@ -56,6 +57,7 @@ FenetreEtage::FenetreEtage ()
     resize(250, 150);
 }
 
+//il faut créer une nouvelle scene car une nouvelle scene == un nouvel etage d un batiment
 void FenetreEtage::sauvegarder()
 {
     // On vérifie que le nom de la classe n'est pas vide, sinon on arrête
@@ -64,6 +66,7 @@ void FenetreEtage::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de l'etage a creer pour valider");
             return; // Arrêt de la méthode
         }
+
         this->close();
 }
 
