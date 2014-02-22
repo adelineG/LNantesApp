@@ -1,5 +1,3 @@
-
-
 #include <QtGui>
 #include "diagramtextitem.h"
 #include "diagramscene.h"
@@ -13,10 +11,12 @@
 #include "escalierfenetre.h"
 #include "fenetreconnexion.h"
 #include "fenetreetage.h"
+#include "fenetrebat.h"
 #include "cloisonitem.h"
 #include "fenetreporte.h"
 #include "labelitem.h"
 #include <QPainter>
+#include <QList>
 
 static const int GRID_STEP = 30;
 
@@ -35,16 +35,6 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
-    listBatiment = new  QList <BatimentItem*>();
-    listeCouloir = new  QList <CouloirItem*> ();
-    listePorte= new QList <PorteItem*,PorteItem*>();
-    listeEscalier = new  QList <EscalierItem*> ();
-    listeConnexion=new QList <ConnexionItem*> ();
-    listeAscenseur= new QList <AscenseurItem*> ();
-    listeCloison = new QList <CloisonItem*>();
-    listeLabel = new QList <LabelItem*> ();
-
-
 }
 //! [0]
 
@@ -114,7 +104,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     case AddAscenseur:
     {
-        ascenseur = new EscalierItem(this);
+        ascenseur = new AscenseurItem(this);
         ascenseur->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
         ascenseur->setPos(mouseEvent->scenePos());
         listeAscenseur.push_front(ascenseur);
@@ -130,8 +120,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         FenetreConnexion *formulaire = new FenetreConnexion(this);
         formulaire->show();
-
-
         listeConnexion.push_front(connexion);
         addItem(connexion);
     }
@@ -196,7 +184,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
         porteD->setBrush(QBrush(Qt::green));
         porteD->setPos(mouseEvent->scenePos());
-        listePorte.push_front(porteD,porteG);
+        listePorte.push_front(porteD);
         addItem(porteG);
         addItem(porteD);
     }
@@ -215,6 +203,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     case InsertText :
     {
+
         textItem = new DiagramTextItem();
         textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
         textItem->setZValue(1000.0);
@@ -222,11 +211,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 this, SLOT(editorLostFocus(DiagramTextItem*)));
         connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
                 this, SIGNAL(itemSelected(QGraphicsItem*)));
-
         addItem(textItem);
         textItem->setPos(mouseEvent->scenePos());
-        listeLabel.push_front(textItem);
         emit textInserted(textItem);
+        break;
     }
     default:
         break;
@@ -239,8 +227,8 @@ void DiagramScene::ouvrirFenetrePopUp(){
     if (myMode == AddBatiment) {
         bat = new BatimentItem(this);
         bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-        bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
-        FenetreBat *formulaire = new FenetreBat();
+       // bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
+        FenetreBat *formulaire = new FenetreBat(this);
         formulaire->show();
     }
 }
@@ -267,6 +255,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
+
     }
     if(myMode == AddCouloir){
         QPointF offx = startPoint;
@@ -349,34 +338,6 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (myMode == MoveItem)
         itemEnDeplacement = NULL;
 
-    if (line != 0 && myMode == InsertLine) {
-        QList<QGraphicsItem *> startItems = items(line->line().p1());
-        if (startItems.count() && startItems.first() == line)
-            startItems.removeFirst();
-        QList<QGraphicsItem *> endItems = items(line->line().p2());
-        if (endItems.count() && endItems.first() == line)
-            endItems.removeFirst();
-
-        removeItem(line);
-        delete line;
-        //! [11] //! [12]
-
-        if (startItems.count() > 0 && endItems.count() > 0 &&
-                startItems.first()->type() == DiagramItem::Type &&
-                endItems.first()->type() == DiagramItem::Type &&
-                startItems.first() != endItems.first()) {
-            DiagramItem *startItem =
-                    qgraphicsitem_cast<DiagramItem *>(startItems.first());
-            DiagramItem *endItem =
-                    qgraphicsitem_cast<DiagramItem *>(endItems.first());
-            Arrow *arrow = new Arrow(startItem, endItem);
-            startItem->addArrow(arrow);
-            endItem->addArrow(arrow);
-            arrow->setZValue(-1000.0);
-            addItem(arrow);
-            arrow->updatePosition();
-        }
-    }
     //! [12] //! [13]
 
     /*************************************************************************************************/
@@ -424,7 +385,7 @@ void DiagramScene::drawBackground(QPainter *painter, const QRectF &rect)
 void DiagramScene::paintEvent(QPaintEvent *event)
 //! [13] //! [14]
 {
-    //QPainter *painter(this);
+
     QRect dirtyRect = event->rect();
-    //bat->paint(painter,event,mouseEvent->pos());
+
 }

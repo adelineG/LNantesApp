@@ -10,11 +10,14 @@ class ConnexionItem : public QGraphicsPixmapItem
 {
 public:
     ConnexionItem(DiagramScene *ds);
-    void setConnect(QString cur, QString a){connect->push_front(cur);connect->push_front(a);}
-    QList <QString> *connect;
+    void setConnect(QString a){
+            connect=a;
+    }
+    bool exist(){return true;}
+
 private:
     DiagramScene* parent;
-
+    QString connect;
 
 };
 

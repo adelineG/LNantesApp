@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QPushButton>
+#include "mainwindow.h"
 #include "diagramscene.h"
 
 class FenetrePorte : public QWidget
@@ -11,6 +12,7 @@ class FenetrePorte : public QWidget
     Q_OBJECT
 public:
     FenetrePorte(DiagramScene *ds);
+
     void setNomSalle(QString n){nomSalle=n;}
     void setCapaciteSalle(QString c){cap=c;}
     QString getNomSalle(){return nomSalle;}
@@ -18,6 +20,7 @@ public:
 
 private:
     DiagramScene *parent;
+
     QLineEdit *nom;
     QLineEdit *capacite;
     QString nomSalle;

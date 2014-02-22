@@ -1,5 +1,7 @@
 #include "planmodel.h"
 
-PlanModel::PlanModel()
+PlanModel::PlanModel(MainWindow *m)
 {
+    parent=m;
+    listScene = new QList<DiagramScene*>;
 }

@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include <QFormLayout>
 #include <QComboBox>
+#include "mainwindow.h"
 #include "diagramscene.h"
 
 class EscalierFenetre  : public QWidget
@@ -26,6 +27,7 @@ public slots:
 
 private:
         DiagramScene *parent;
+
         QLineEdit *nom;
         QLineEdit *etage;
         QRadioButton *radio1;

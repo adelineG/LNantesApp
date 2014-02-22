@@ -205,7 +205,7 @@ void MainWindow::about()
 }
 //! [20]
 void MainWindow::ouvrirBatiment(){
-    FenetreBat *formulaire = new FenetreBat();
+    FenetreBat *formulaire = new FenetreBat(scene);
     formulaire->show();
     scene->setMode(DiagramScene::AddBatiment);
 }
@@ -215,13 +215,13 @@ void MainWindow::ouvrirCouloir(){
 }
 
 void MainWindow::ouvrirEscalier(){
-    EscalierFenetre *formulaire = new EscalierFenetre();
+    EscalierFenetre *formulaire = new EscalierFenetre(scene);
     formulaire->show();
     scene->setMode(DiagramScene::AddEscalier);
 }
 
 void MainWindow::ouvrirConnexion(){
-    FenetreConnexion *formulaire = new FenetreConnexion();
+    FenetreConnexion *formulaire = new FenetreConnexion(scene);
     formulaire->show();
     scene->setMode(DiagramScene::AddConnexion);
 }
@@ -243,9 +243,9 @@ void MainWindow::ouvrirAscenseur(){
 
 
 void MainWindow::ouvrirEtage(){
-    FenetreEtage *formulaire = new FenetreEtage(this);
+    FenetreEtage *formulaire = new FenetreEtage(scene);
     formulaire->show();
-    plan->setListScene(scene);
+    //plan->setListScene(scene);
     //sauvegarde l autre scene et en créer une nouvelle
     //DiagramScene *scene = new DiagramScene();
 }
@@ -275,10 +275,11 @@ void MainWindow::createActions()
     /**********************************************************/
 
     actionNouveau = new QAction("&Nouveau plan", this);
+    actionNouveau->setShortcut(tr("Ctrl+N"));
     actionCharger = new QAction("&Charger", this);
     actionSauvegarder = new QAction("&Sauvegarder", this);
-
-
+    actionSauvegarder->setShortcut(tr("Ctrl+S"));
+    connect(actionSauvegarder,SIGNAL(triggered()),this,SLOT(sauvegardePlan()));
     actionPorte = new QAction("&Porte", this);
     connect(actionPorte,SIGNAL(triggered()),this,SLOT(ouvrirPorte()));
 
@@ -407,6 +408,7 @@ void MainWindow::createToolbars()
 
 void MainWindow::sauvegardePlan(){
     plan->setListScene(scene);
+    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
     //exporter au format xml
     //exporter au format png
 }

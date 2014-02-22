@@ -97,6 +97,7 @@ private slots:
     void ouvrirAscenseur();
     void ouvrirCloison();
     void ouvrirPorte();
+     void sauvegardePlan();
 
 private:
     void createToolBox();
@@ -104,7 +105,7 @@ private:
     void createMenus();
     void createToolbars();
     void createStatusBar();
-    void sauvegardePlan();
+
     
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
     QIcon createColorToolButtonIcon(const QString &image, QColor color);

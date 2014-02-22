@@ -20,11 +20,12 @@ public slots:
     void ouvrirBatiment();
     void ouvrirEscalier();
     void ouvrirConnexion();
-    void ouvrirEtage();
+    //void ouvrirEtage();
     void ouvrirCouloir();
     void ouvrirPorte();
     void ouvrirAscenseur();
     void ouvrirCloison();
+    void ouvrirLabel();
 
     private:
     QButtonGroup* buttonGroup;

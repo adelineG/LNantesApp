@@ -33,9 +33,9 @@ FenetreConnexion::FenetreConnexion(DiagramScene *ds)
 
     listeExistant = new QComboBox();
     //if (myBatiment){
-        listeExistant->addItem("Batiment1");
-        listeExistant->addItem("Batiment26");
-   // }
+    listeExistant->addItem("Batiment1");
+    listeExistant->addItem("Batiment26");
+    // }
 
 
     /**************************test caché *******************************/
@@ -78,30 +78,33 @@ FenetreConnexion::FenetreConnexion(DiagramScene *ds)
 void FenetreConnexion::sauvegarder()
 {
     // On vérifie que le nom
-        if (nom->text().isEmpty() && !radio2->isChecked())
-        {
-            QMessageBox::critical(this, "Erreur", "Vous n'avez renseigne aucun champs");
-            return; // Arrêt de la méthode
-        }
-        if(!nom->text()) parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text());
-        else parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text()); // ya un souci ici !!!!!
+    if (nom->text().isEmpty() && !radio2->isChecked())
+    {
+        QMessageBox::critical(this, "Erreur", "Vous n'avez renseigne aucun champs");
+        return; // Arrêt de la méthode
+    }
 
-        this->close();
+    if(!(nom->text().isEmpty()) && !(parent->listBatiment.isEmpty())){
+        parent->connexion->setConnect(nom->text());
+    }
+    // else parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text()); // ya un souci ici !!!!!
+
+    this->close();
 }
 
 void FenetreConnexion::demandeNom(){
 
-       listeExistant->hide();
-       widgetGadget->show();
-       this->update();
+    listeExistant->hide();
+    widgetGadget->show();
+    this->update();
 
 }
 
 void FenetreConnexion::choixNom(){
 
-       listeExistant->show();
-       widgetGadget->hide();
-       this->update();
+    listeExistant->show();
+    widgetGadget->hide();
+    this->update();
 
 }
 

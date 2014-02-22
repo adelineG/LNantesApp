@@ -17,6 +17,7 @@ public:
     void setNom(QString n) {_nom=n;}
     void setEtage(QString i){etage_cur=i;}
     QString nom() const { return _nom; }
+    QString etage() const { return etage_cur;}
     int nbEtages() const { return _nbEtages; }
     int type() const { return Type; }
 

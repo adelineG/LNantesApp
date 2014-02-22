@@ -10,6 +10,7 @@
 #include <QGroupBox>
 #include <QFormLayout>
 #include <QComboBox>
+#include "mainwindow.h"
 #include "diagramscene.h"
 
 class FenetreEtage : public QWidget
@@ -18,6 +19,7 @@ class FenetreEtage : public QWidget
 public:
    FenetreEtage(DiagramScene *ds);
 
+
 public slots:
         void sauvegarder();
 
@@ -25,6 +27,7 @@ public slots:
 
 private:
         DiagramScene *parent;
+
         QLineEdit *nom;
         QLineEdit *etage;
         QRadioButton *radio1;

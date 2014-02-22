@@ -9,6 +9,7 @@
 FenetreBat::FenetreBat(DiagramScene *ds)
 {
 
+    parent=ds;
     nom = new QLineEdit;
     etage = new QLineEdit;
 
@@ -50,6 +51,7 @@ void FenetreBat::sauvegarder()
             QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom du batiment");
             return; // Arrêt de la méthode
         }
+
         parent->bat->setNom(nom->text());
         if(!etage->text().isEmpty()) parent->bat->setEtage(etage->text());
         this->close();

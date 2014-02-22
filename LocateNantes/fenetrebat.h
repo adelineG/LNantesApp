@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include "diagramscene.h"
+#include "mainwindow.h"
 
 class FenetreBat : public QWidget
 {

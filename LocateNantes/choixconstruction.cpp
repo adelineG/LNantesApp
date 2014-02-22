@@ -149,6 +149,8 @@ ChoixConstruction::ChoixConstruction(QWidget* parent) : QToolBox(parent)
     QWidget *textWidget = new QWidget;
     textWidget->setLayout(textLayout);
     accesLayout->addWidget(textWidget, 3, 0);
+
+    connect(textButton,SIGNAL(clicked()),this,SLOT(ouvrirLabel()));
    /******************************* bouton connexion *******************************************************/
 
     accesLayout->setColumnStretch(1, 10);
@@ -169,7 +171,6 @@ void ChoixConstruction::ouvrirBatiment(){
 
 void ChoixConstruction::ouvrirCouloir(){
    main->getScene()->setMode(DiagramScene::AddCouloir);
-
 }
 
 void ChoixConstruction::ouvrirPorte(){
@@ -183,18 +184,18 @@ void ChoixConstruction::ouvrirCloison(){
 
 
 void ChoixConstruction::ouvrirEscalier(){
-
     main->getScene()->setMode(DiagramScene::AddEscalier);
 }
 
 void ChoixConstruction::ouvrirAscenseur(){
-
     main->getScene()->setMode(DiagramScene::AddAscenseur);
 }
 
 void ChoixConstruction::ouvrirConnexion(){
-
     main->getScene()->setMode(DiagramScene::AddConnexion);
 }
 
+void ChoixConstruction::ouvrirLabel(){
+    main->getScene()->setMode(DiagramScene::InsertText);
+}
 

@@ -1,6 +1,7 @@
 #include "fenetreetage.h"
+#include "mainwindow.h"
 #include "QMessageBox"
-#include ""
+
 
 
 FenetreEtage::FenetreEtage (DiagramScene *ds)

@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include <QFormLayout>
 #include <QComboBox>
+#include "mainwindow.h"
 #include <diagramscene.h>
 
 class FenetreConnexion : public QWidget
@@ -19,6 +20,7 @@ class FenetreConnexion : public QWidget
 public:
     FenetreConnexion(DiagramScene *ds);
 
+
 public slots:
         void sauvegarder();
         void demandeNom();
@@ -26,6 +28,7 @@ public slots:
 
 private:
         DiagramScene *parent;
+
         QLineEdit *nom;
         QLineEdit *etage;
         QRadioButton *radio1;

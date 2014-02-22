@@ -3,19 +3,23 @@
 
 #include "QAbstractItemModel"
 #include "mainwindow.h"
+#include "diagramscene.h"
 #include <QList>
 
 class MainWindow;
 
-class PlanModel : public QAbstractItemModel
+class PlanModel
 {
 public:
-    PlanModel(MainWindow *m){parent=m;}
-    void setListScene(QGraphicsScene* itemScene){listScene->append(itemScene);}
+    PlanModel(MainWindow *m);
+    void setListScene(DiagramScene* itemScene){listScene->append(itemScene);}
+    bool hasMoreOneScene(){
+      return  listScene->size()>1;
+    }
 
 private:
     MainWindow *parent;
-    QList<QGraphicsScene> *listScene;
+    QList<DiagramScene*> *listScene;
 };
 
 #endif // PLANMODEL_H

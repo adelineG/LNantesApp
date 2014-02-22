@@ -10,7 +10,7 @@ class EscalierItem : public QGraphicsPixmapItem
 {
 public:
     EscalierItem(DiagramScene *ds);
-    void setEtage(QString et){listeEtage.push_front(et);}
+    void setEtage(QString et){listeEtage.append(et);}
 
 private:
     DiagramScene *parent;
