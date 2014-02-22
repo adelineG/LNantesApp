@@ -17,9 +17,12 @@ public:
       return  listScene->size()>1;
     }
 
+    QList<DiagramScene*> *listScene;
+
+
 private:
     MainWindow *parent;
-    QList<DiagramScene*> *listScene;
+
 };
 
 #endif // PLANMODEL_H

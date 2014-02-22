@@ -9,6 +9,7 @@ class AscenseurItem : public QGraphicsPixmapItem
 {
 public:
     AscenseurItem(DiagramScene *ds);
+    QPointF position;
 
 private:
     DiagramScene *parent;

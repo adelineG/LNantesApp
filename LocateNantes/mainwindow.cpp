@@ -51,6 +51,7 @@
 #include "fenetreconnexion.h"
 #include "fenetreetage.h"
 #include "choixconstruction.h"
+#include "parserxml.h"
 
 
 //! [0]
@@ -76,6 +77,7 @@ MainWindow::MainWindow()
 
     setWindowTitle(tr("LocateUnivNantes"));
     setUnifiedTitleAndToolBarOnMac(true);
+
 
 }
 //! [0]
@@ -409,6 +411,7 @@ void MainWindow::createToolbars()
 void MainWindow::sauvegardePlan(){
     plan->setListScene(scene);
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
-    //exporter au format xml
+    parserXML *parse = new parserXML(this);
+    parse->sauvegarderXML(fichier);
     //exporter au format png
 }

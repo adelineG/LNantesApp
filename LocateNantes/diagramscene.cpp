@@ -83,6 +83,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
     case AddBatiment:
     {
+        bat->setDepart(startPoint);
+        bat->setFin(mouseEvent->scenePos());
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
         listBatiment.push_front(bat);
@@ -94,7 +96,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         escalier = new EscalierItem(this);
         escalier->setPixmap(QPixmap(":/images/escalier.png").scaled(30,30));
         escalier->setPos(mouseEvent->scenePos());
-
+        escalier->position=mouseEvent->scenePos();
         EscalierFenetre *formulaire = new EscalierFenetre(this);
         formulaire->show();
         listeEscalier.push_front(escalier);
@@ -107,6 +109,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         ascenseur = new AscenseurItem(this);
         ascenseur->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
         ascenseur->setPos(mouseEvent->scenePos());
+        ascenseur->position=mouseEvent->scenePos();
         listeAscenseur.push_front(ascenseur);
         addItem(ascenseur);
     }
@@ -146,6 +149,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         coulI = new CouloirItem(this);
         coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        coulI->setDepart(startPoint);
+        coulI->setFin(mouseEvent->scenePos());
         coulI->setPos(startPoint);
         listeCouloir.push_front(coulI);
         addItem(coulI);
@@ -184,6 +189,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
         porteD->setBrush(QBrush(Qt::green));
         porteD->setPos(mouseEvent->scenePos());
+        porteD->setDepart(startPoint);
+        porteD->setFin(mouseEvent->scenePos());
         listePorte.push_front(porteD);
         addItem(porteG);
         addItem(porteD);
@@ -252,6 +259,9 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
 
     if (myMode==AddBatiment){
+
+        bat->setDepart(startPoint);
+        bat->setFin(mouseEvent->scenePos());
         bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
@@ -274,6 +284,9 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
             offx += QPointF(0,40);
             offy += QPointF(0,40);
         }
+
+        coulI->setDepart(startPoint);
+        coulI->setFin(mouseEvent->scenePos());
         coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         coulI->setPos(startPoint);

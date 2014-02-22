@@ -20,6 +20,11 @@ public:
     QString etage() const { return etage_cur;}
     int nbEtages() const { return _nbEtages; }
     int type() const { return Type; }
+    QPointF depart() const { return _depart;}
+    QPointF fin() const { return _fin;}
+    void setDepart(QPointF p){_depart=p;}
+    void setFin(QPointF p){_fin=p;}
+
 
 protected:
     DiagramScene *parent;
@@ -29,6 +34,8 @@ private:
     QPainter painter;
     QString etage_cur;
     QString _nom;
+    QPointF _depart;
+    QPointF _fin;
     int _nbEtages;
 
 

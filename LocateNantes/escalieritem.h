@@ -11,6 +11,7 @@ class EscalierItem : public QGraphicsPixmapItem
 public:
     EscalierItem(DiagramScene *ds);
     void setEtage(QString et){listeEtage.append(et);}
+    QPointF position;
 
 private:
     DiagramScene *parent;
