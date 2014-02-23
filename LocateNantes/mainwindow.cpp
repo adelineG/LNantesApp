@@ -184,7 +184,7 @@ void MainWindow::itemSelectionChanged(QGraphicsItem *item)
 
     if (item->type() == QGraphicsItem::UserType + 1){ //Batiment
         BatimentItem *bat = static_cast<BatimentItem*>(item);
-        statusBar->showMessage(QString::fromUtf8("Bât. ") + bat->nom() + QString::fromUtf8(" - ") + QString::number(bat->nbEtages()) + QString::fromUtf8(" étage(s)"));
+        statusBar->showMessage(QString::fromUtf8("Bât. ") + bat->nom() + QString::fromUtf8(" - ") + bat->etage()+ QString::fromUtf8(" étage(s)"));
     }
 }
 //! [19]
