@@ -95,7 +95,7 @@ private slots:
     void ouvrirBatiment();
     void ouvrirEscalier();
     void ouvrirConnexion();
-    void ouvrirEtage();
+
     void ouvrirCouloir();
     void ouvrirAscenseur();
     void ouvrirCloison();

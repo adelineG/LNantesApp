@@ -186,6 +186,8 @@ void MainWindow::itemSelectionChanged(QGraphicsItem *item)
         BatimentItem *bat = static_cast<BatimentItem*>(item);
         statusBar->showMessage(QString::fromUtf8("Bât. ") + bat->nom() + QString::fromUtf8(" - ") + bat->etage()+ QString::fromUtf8(" étage(s)"));
     }
+
+
 }
 //! [19]
 
@@ -197,9 +199,9 @@ void MainWindow::about()
 }
 //! [20]
 void MainWindow::ouvrirBatiment(){
-    FenetreBat *formulaire = new FenetreBat(scene);
-    formulaire->show();
+    qDebug("dans le main");
     scene->setMode(DiagramScene::AddBatiment);
+    scene->ouvrirFenetrePopUp();
 }
 
 void MainWindow::ouvrirCouloir(){
@@ -207,14 +209,10 @@ void MainWindow::ouvrirCouloir(){
 }
 
 void MainWindow::ouvrirEscalier(){
-    EscalierFenetre *formulaire = new EscalierFenetre(scene);
-    formulaire->show();
     scene->setMode(DiagramScene::AddEscalier);
 }
 
 void MainWindow::ouvrirConnexion(){
-    FenetreConnexion *formulaire = new FenetreConnexion(scene);
-    formulaire->show();
     scene->setMode(DiagramScene::AddConnexion);
 }
 
@@ -234,13 +232,6 @@ void MainWindow::ouvrirAscenseur(){
 
 
 
-void MainWindow::ouvrirEtage(){
-    FenetreEtage *formulaire = new FenetreEtage(scene);
-    formulaire->show();
-    //plan->setListScene(scene);
-    //sauvegarde l autre scene et en créer une nouvelle
-    //DiagramScene *scene = new DiagramScene();
-}
 
 void MainWindow::createStatusBar()
 {
@@ -283,8 +274,7 @@ void MainWindow::createActions()
     actionConnexion = new QAction("&Connexion", this);
     connect(actionConnexion,SIGNAL(triggered()),this,SLOT(ouvrirConnexion()));
 
-    actionEtage = new QAction("&Etage", this);
-    connect(actionEtage, SIGNAL(triggered()),this, SLOT(ouvrirEtage()));
+
 
     actionNouveauBatiment = new QAction("&Nouveau", this);
     connect(actionNouveauBatiment,SIGNAL(triggered()),this,SLOT(ouvrirBatiment()));
@@ -350,7 +340,7 @@ void MainWindow::createMenus()
     menuConstruction->addAction(actionAscenseur);
     menuConstruction->addAction(actionConnexion);
     //
-    menuEdition->addAction(actionEtage);
+
     // menu affichage
     menuAffichage = menuBar()->addMenu("&Affichage");
 

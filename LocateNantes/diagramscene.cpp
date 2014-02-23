@@ -106,7 +106,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         if(monGroupe==NULL )
         {
-
             break;
         }
         escalier = new EscalierItem(this);
@@ -148,10 +147,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         connexion->setPos(mouseEvent->scenePos());
 
         FenetreConnexion *formulaire = new FenetreConnexion(this);
-        qDebug("merde");
+
         formulaire->show();
-         qDebug("merde");
-         monGroupe->addToGroup(connexion);
+
+        monGroupe->addToGroup(connexion);
     }
         break;
 
@@ -166,7 +165,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         QPointF offy = mouseEvent->scenePos();
         int testx = abs(offy.x()-offx.x());
         int testy = abs(offy.y()-offx.y());
-
         if( testx <= testy ){
 
             offx += QPointF(40,0);
@@ -273,13 +271,15 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 void DiagramScene::ouvrirFenetrePopUp(){
 
-    if (myMode == AddBatiment) {
+
+    if(myMode==AddBatiment) {
         bat = new BatimentItem(this);
         bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-       // bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         FenetreBat *formulaire = new FenetreBat(this);
         formulaire->show();
-
+    }
+    else {
+        myMode=MoveItem;
     }
 }
 
@@ -311,67 +311,78 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     }
     if(myMode == AddCouloir){
-        QPointF offx = startPoint;
-        QPointF offy = mouseEvent->scenePos();
-        int testx = abs(offy.x()-offx.x());
-        int testy = abs(offy.y()-offx.y());
+        if(monGroupe!=NULL){
 
-        if( testx <= testy ){
 
-            offx += QPointF(40,0);
-            offy += QPointF(40,0);
+            QPointF offx = startPoint;
+            QPointF offy = mouseEvent->scenePos();
+            int testx = abs(offy.x()-offx.x());
+            int testy = abs(offy.y()-offx.y());
+
+            if( testx <= testy ){
+
+                offx += QPointF(40,0);
+                offy += QPointF(40,0);
+            }
+            else if(testx > testy)
+            {
+
+                offx += QPointF(0,40);
+                offy += QPointF(0,40);
+            }
+
+            coulI->setDepart(startPoint);
+            coulI->setFin(mouseEvent->scenePos());
+            coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+            coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+            coulI->setPos(startPoint);
         }
-        else if(testx > testy)
-        {
-
-            offx += QPointF(0,40);
-            offy += QPointF(0,40);
-        }
-
-        coulI->setDepart(startPoint);
-        coulI->setFin(mouseEvent->scenePos());
-        coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-        coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-        coulI->setPos(startPoint);
     }
 
     if(myMode == AddPorte){
 
-
-        QPointF offxh = startPoint;
-        QPointF offxv = startPoint;
-        QPointF offyv = mouseEvent->scenePos();
-        QPointF offyh = mouseEvent->scenePos();
-        int testx = abs(mouseEvent->scenePos().x()-startPoint.x());
-        int testy = abs(mouseEvent->scenePos().y()-startPoint.y());
-        int distance = (sqrt((testx*testx)+(testy*testy)))*0.25;
+        if(monGroupe!=NULL){
 
 
-        if( testx <= testy ){
-            offxh -= QPoint(distance,0);
-            offxv += QPoint(distance,0);
-            offyh -= QPoint(distance,0);
-            offyv += QPoint(distance,0);
+            QPointF offxh = startPoint;
+            QPointF offxv = startPoint;
+            QPointF offyv = mouseEvent->scenePos();
+            QPointF offyh = mouseEvent->scenePos();
+            int testx = abs(mouseEvent->scenePos().x()-startPoint.x());
+            int testy = abs(mouseEvent->scenePos().y()-startPoint.y());
+            int distance = (sqrt((testx*testx)+(testy*testy)))*0.25;
+
+
+            if( testx <= testy ){
+                offxh -= QPoint(distance,0);
+                offxv += QPoint(distance,0);
+                offyh -= QPoint(distance,0);
+                offyv += QPoint(distance,0);
+            }
+            else
+            {
+                offxh -= QPoint(0,distance);
+                offxv += QPoint(0,distance);
+                offyh -= QPoint(0,distance);
+                offyv += QPoint(0,distance);
+            }
+            porteG->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
+            porteG->setPos(startPoint);
+            porteG->setBrush(QBrush(Qt::green));
+            porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
+            porteD->setBrush(QBrush(Qt::green));
+            porteD->setPos(mouseEvent->scenePos());
         }
-        else
-        {
-            offxh -= QPoint(0,distance);
-            offxv += QPoint(0,distance);
-            offyh -= QPoint(0,distance);
-            offyv += QPoint(0,distance);
-        }
-        porteG->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
-        porteG->setPos(startPoint);
-        porteG->setBrush(QBrush(Qt::green));
-        porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
-        porteD->setBrush(QBrush(Qt::green));
-        porteD->setPos(mouseEvent->scenePos());
     }
 
     if(myMode == AddCloison){
-        cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-        cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
-        cloison->setPos(startPoint);
+        if(monGroupe!=NULL){
+
+
+            cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
+            cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+            cloison->setPos(startPoint);
+        }
     }
 }
 //! [10]

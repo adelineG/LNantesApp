@@ -185,6 +185,7 @@ void ChoixConstruction::ouvrirCloison(){
 
 void ChoixConstruction::ouvrirEscalier(){
     main->getScene()->setMode(DiagramScene::AddEscalier);
+
 }
 
 void ChoixConstruction::ouvrirAscenseur(){
@@ -193,6 +194,7 @@ void ChoixConstruction::ouvrirAscenseur(){
 
 void ChoixConstruction::ouvrirConnexion(){
     main->getScene()->setMode(DiagramScene::AddConnexion);
+
 }
 
 void ChoixConstruction::ouvrirLabel(){

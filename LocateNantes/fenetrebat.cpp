@@ -113,8 +113,6 @@ void FenetreBat::sauvegarder()
     parent->bat->setEtage(etage->text());
     parent->listEtage.append(etage->text());
 
-
-
     if(!etage->text().isEmpty()) parent->bat->setEtage(etage->text());
     this->close();
 }
