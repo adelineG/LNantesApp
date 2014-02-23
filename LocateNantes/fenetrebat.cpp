@@ -42,8 +42,7 @@ FenetreBat::FenetreBat(DiagramScene *ds)
     widgetGadgetEtage=new QWidget();
     widgetGadgetEtage->setLayout(definitionLayoutEtage);
 
-    QFormLayout *textEnTete = new QFormLayout;
-    QWidget *wid=new QWidget();
+
 
 
 

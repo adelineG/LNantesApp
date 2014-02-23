@@ -57,7 +57,7 @@ const QMetaObjectExtraData FenetrePorte::staticMetaObjectExtraData = {
 };
 
 const QMetaObject FenetrePorte::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_FenetrePorte,
+    { &QDialog::staticMetaObject, qt_meta_stringdata_FenetrePorte,
       qt_meta_data_FenetrePorte, &staticMetaObjectExtraData }
 };
 
@@ -75,12 +75,12 @@ void *FenetrePorte::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_FenetrePorte))
         return static_cast<void*>(const_cast< FenetrePorte*>(this));
-    return QWidget::qt_metacast(_clname);
+    return QDialog::qt_metacast(_clname);
 }
 
 int FenetrePorte::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QDialog::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

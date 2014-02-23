@@ -52,8 +52,7 @@ void FenetrePorte::sauvegarder()
             return; // Arrêt de la méthode
         }
 
-
-        parent->label->setText(nomSalle);
+        parent->label->setText(nom->text());
         parent->porteD->getNomSalle(nom->text());
         parent->porteD->getCapaSalle(capacite->text());
 

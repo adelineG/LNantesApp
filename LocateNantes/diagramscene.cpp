@@ -89,8 +89,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
     case AddBatiment:
     {
-        parent->changerVue(0);
-        parent->update();
+
+
         bat->setDepart(startPoint);
         bat->setFin(mouseEvent->scenePos());
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
@@ -106,7 +106,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         if(monGroupe==NULL )
         {
-            myMode == MoveItem;
+            myMode = MoveItem;
             break;
         }
         escalier = new EscalierItem(this);
@@ -125,7 +125,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(monGroupe == NULL)
         {
 
-            myMode == MoveItem;
+            myMode = MoveItem;
             break ;
         }
 
@@ -143,7 +143,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(monGroupe == NULL)
         {
 
-            myMode == MoveItem;
+            myMode = MoveItem;
             break ;
         }
         connexion = new ConnexionItem(this);
@@ -162,7 +162,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         if(monGroupe == NULL)
         {
-            myMode == MoveItem;
+            myMode = MoveItem;
             break ;
         }
         QPointF offx = startPoint;
@@ -195,7 +195,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(monGroupe == NULL)
         {
 
-            myMode == MoveItem;
+            myMode = MoveItem;
         }
         QPointF offxh = startPoint;
         QPointF offxv = startPoint;
@@ -222,10 +222,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         porteG = new PorteItem(this);
         porteD = new PorteItem(this);
-        porteG->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
+        porteG->setRect(QRectF(QPointF(0,0),QSizeF(15,15)));
         porteG->setPos(startPoint);
         porteG->setBrush(QBrush(Qt::green));
-        porteD->setRect(QRectF(QPointF(0,0),QSizeF(10,10)));
+        porteD->setRect(QRectF(QPointF(0,0),QSizeF(15,15)));
         porteD->setBrush(QBrush(Qt::green));
         porteD->setPos(mouseEvent->scenePos());
         porteD->setDepart(startPoint);
@@ -245,7 +245,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         }
         cloison = new CloisonItem(this);
         cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-        cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        cloison->setPen(QPen(Qt::blue,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         cloison->setPos(startPoint);
 
         monGroupe->addToGroup(cloison);
@@ -338,7 +338,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
             coulI->setDepart(startPoint);
             coulI->setFin(mouseEvent->scenePos());
             coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-            coulI->setPen(QPen(Qt::blue,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+            coulI->setPen(QPen(Qt::gray,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
             coulI->setPos(startPoint);
         }
     }
@@ -398,8 +398,11 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         label= new LabelItem(this);
         FenetrePorte *fen = new FenetrePorte(this);
         fen->show();
+        label->setBrush(Qt::blue);
         label->setPos(QPointF(mouseEvent->scenePos().x()+20,mouseEvent->scenePos().y()-20));
         monGroupe->addToGroup(label);
+
+
 
     }
 

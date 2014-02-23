@@ -195,7 +195,7 @@ void MainWindow::itemSelectionChanged(QGraphicsItem *item)
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Locate Univ Nantes"),
-                      QString::fromUtf8("Bienvenue sur notre application ! \n Elle vous permet de construire les plans des batiments de l'Université de Nantes. \n Dans cette interface vous allez pourvoir créer chaque etage et chaque batiment. Il est conseillé de commencer par la création du batiment."));
+                      QString::fromUtf8("Bienvenue sur notre application ! \nElle vous permet de construire les plans des batiments de l'Université de Nantes. \n Dans cette interface vous allez pourvoir créer chaque etage et chaque batiment. Il est conseillé de commencer par la création du batiment."));
 }
 //! [20]
 void MainWindow::ouvrirBatiment(){
@@ -399,11 +399,16 @@ void MainWindow::createToolbars()
 void MainWindow::sauvegardePlan(){
 
 
-    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.xpm *.jpg);;XML files (*.xml)");
+    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "XML files (*.xml)");
+
 
     parserXML *parse = new parserXML(this);
 
+
     parse->sauvegarderXML(fichier);
+
+
+
 
     //exporter au format png
 
@@ -411,17 +416,3 @@ void MainWindow::sauvegardePlan(){
 
 
 
-//si c est le meme batiment 1
-// si c est un autre 0
-void MainWindow::changerVue(int bat){
-    if(bat == 0){
-       // view->setSceneRect(QRectF(1000,1000,5000,5000));
-      //  view->update();
-        qDebug("trtrtrtrtr");
-
-    }
-    else {
-       // view->translate(view->pos().x(),view->pos().y()+10000);
-    }
-
-}

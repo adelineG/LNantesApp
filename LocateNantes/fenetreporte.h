@@ -7,7 +7,7 @@
 #include "mainwindow.h"
 #include "diagramscene.h"
 
-class FenetrePorte : public QWidget
+class FenetrePorte : public QDialog
 {
     Q_OBJECT
 public:

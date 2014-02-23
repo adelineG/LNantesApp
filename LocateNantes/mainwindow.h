@@ -78,8 +78,7 @@ public:
    DiagramScene *scene;
    PlanModel *plan;
 
-public slots :
-   void changerVue(int);
+
 
 private slots:
     //void backgroundButtonGroupClicked(QAbstractButton *button);

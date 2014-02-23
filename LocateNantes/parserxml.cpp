@@ -1,7 +1,3 @@
-
-
-//
-
 #include "parserxml.h"
 #include "escalieritem.h"
 #include "batimentitem.h"
@@ -11,144 +7,81 @@
 #include "porteitem.h"
 #include "QList"
 
-
-parserXML::parserXML(MainWindow *mw)
-{
-    parent=mw;
-}
-
-
-
-
+parserXML::parserXML(MainWindow *mw) { parent=mw; }
 void parserXML::sauvegarderXML(QString fileName){
 
+    BatimentItem *bat; CouloirItem *c; EscalierItem *es; AscenseurItem *as; PorteItem *po;
 
-    BatimentItem *bat;
-    CouloirItem *c;
-    EscalierItem *es;
-    AscenseurItem *as;
-    PorteItem *po;
+    QFile file( fileName ); if ( !file.open( QIODevice::WriteOnly ) ) { //showMessage( QString("Failed to write to '%1'").arg(filename) ); return; }
 
+        QXmlStreamWriter xmlWriter( &file ); xmlWriter.setAutoFormatting( true ); xmlWriter.writeStartDocument(); xmlWriter.writeStartElement("Plan");
 
-    QFile file( fileName );
-    if ( !file.open( QIODevice::WriteOnly ) )
-    {
-        //showMessage( QString("Failed to write to '%1'").arg(filename) );
-        return;
-    }
+        foreach( QGraphicsItem* item, parent->scene->items()) { switch (item->type()) {
 
+            case BatimentItem::Type: bat= (BatimentItem*)item;
 
-    QXmlStreamWriter xmlWriter( &file );
-    xmlWriter.setAutoFormatting( true );
-    xmlWriter.writeStartDocument();
-    xmlWriter.writeStartElement("Plan");
+                xmlWriter.writeStartElement("Batiment"); xmlWriter.writeAttribute("nom",bat->nom()); xmlWriter.writeAttribute("etage",bat->etage());
+
+                // position du batiment en elem ************ xmlWriter.writeStartElement("Debut");
+                xmlWriter.writeAttribute("x",QString::number(bat->scenePos().x()));
+                xmlWriter.writeAttribute("y",QString::number(bat->scenePos().y()));
 
 
-    foreach( QGraphicsItem* item, parent->scene->items())
-    {
-        switch (item->type()) {
+                xmlWriter.writeEndElement();
+                xmlWriter.writeStartElement("Fin");
 
 
-        case BatimentItem::Type:
-            bat= (BatimentItem*)item;
+                xmlWriter.writeAttribute("x",QString::number(bat->rect().bottomRight().x()));
+                xmlWriter.writeAttribute("y",QString::number(bat->rect().bottomRight().y()));
+                xmlWriter.writeEndElement(); xmlWriter.writeEndElement();
 
+                break; case CouloirItem::Type: c = (CouloirItem*) item;
 
-            xmlWriter.writeStartElement("Batiment");
-            xmlWriter.writeAttribute("nom",bat->nom());
-            xmlWriter.writeAttribute("etage",bat->etage());
+                xmlWriter.writeStartElement("Couloir"); xmlWriter.writeStartElement("Debut");
+                xmlWriter.writeAttribute("x",QString::number(c->scenePos().x()));
+                xmlWriter.writeAttribute("y",QString::number(c->scenePos().y()));
+                xmlWriter.writeEndElement();
+                xmlWriter.writeStartElement("Fin");
+                xmlWriter.writeAttribute("x",QString::number(c->line().x2()));
+                xmlWriter.writeAttribute("y",QString::number(c->line().y2()));
+                xmlWriter.writeEndElement(); xmlWriter.writeEndElement();
 
+                break; case EscalierItem::Type: es= (EscalierItem*) item;
 
-            // position du batiment en elem ************
-            xmlWriter.writeStartElement("Debut");
-            xmlWriter.writeAttribute("x",QString::number(bat->depart().x()));
-            xmlWriter.writeAttribute("y",QString::number(bat->depart().y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeStartElement("Fin");
-            xmlWriter.writeAttribute("x",QString::number(bat->fin().x()));
-            xmlWriter.writeAttribute("y",QString::number(bat->fin().y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeEndElement();
+                xmlWriter.writeStartElement("Escalier"); xmlWriter.writeStartElement("Position");
+                xmlWriter.writeAttribute("x",QString::number(es->scenePos().x()));
+                xmlWriter.writeAttribute("y",QString::number(es->scenePos().y()));
+                xmlWriter.writeEndElement(); xmlWriter.writeEndElement();
 
+                break; case AscenseurItem::Type: as= (AscenseurItem*)item;
 
-            break;
-        case CouloirItem::Type:
-            c = (CouloirItem*) item;
+                xmlWriter.writeStartElement("Ascenseur"); xmlWriter.writeStartElement("Position");
+                xmlWriter.writeAttribute("x",QString::number(as->scenePos().x()));
+                xmlWriter.writeAttribute("y",QString::number(as->scenePos().y()));
+                xmlWriter.writeEndElement(); xmlWriter.writeEndElement();
 
+                break; case PorteItem::Type: po=(PorteItem*)item;
 
-            xmlWriter.writeStartElement("Couloir");
-            xmlWriter.writeStartElement("Debut");
-            xmlWriter.writeAttribute("x",QString::number(c->depart().x()));
-            xmlWriter.writeAttribute("y",QString::number(c->depart().y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeStartElement("Fin");
-            xmlWriter.writeAttribute("x",QString::number(c->fin().x()));
-            xmlWriter.writeAttribute("y",QString::number(c->fin().y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeEndElement();
+                xmlWriter.writeStartElement("Porte"); xmlWriter.writeStartElement("Salle"); xmlWriter.writeAttribute("nom",po->nomSalle()); xmlWriter.writeAttribute("capacite",po->capacite()); xmlWriter.writeEndElement();
 
+                xmlWriter.writeStartElement("Debut");
+                xmlWriter.writeAttribute("x",QString::number(po->scenePos().x()));
+                xmlWriter.writeAttribute("y",QString::number(po->scenePos().y()));
+                xmlWriter.writeEndElement();
+                xmlWriter.writeStartElement("Fin");
+                xmlWriter.writeAttribute("x",QString::number(po->rect().bottomRight().x()));
+                xmlWriter.writeAttribute("y",QString::number(po->rect().bottomRight().y()));
+                xmlWriter.writeEndElement(); xmlWriter.writeEndElement();
 
-            break;
-        case EscalierItem::Type:
-            es= (EscalierItem*) item;
+                break;
 
+            default: break; }
 
-            xmlWriter.writeStartElement("Escalier");
-            xmlWriter.writeStartElement("Position");
-            xmlWriter.writeAttribute("x",QString::number(es->position.x()));
-            xmlWriter.writeAttribute("y",QString::number(es->position.y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeEndElement();
-
-
-            break;
-        case AscenseurItem::Type:
-            as= (AscenseurItem*)item;
-
-
-            xmlWriter.writeStartElement("Ascenseur");
-            xmlWriter.writeStartElement("Position");
-            xmlWriter.writeAttribute("x",QString::number(as->position.x()));
-            xmlWriter.writeAttribute("y",QString::number(as->position.y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeEndElement();
-
-
-            break;
-        case PorteItem::Type:
-            po=(PorteItem*)item;
-
-
-            xmlWriter.writeStartElement("Porte");
-            xmlWriter.writeStartElement("Salle");
-            xmlWriter.writeAttribute("nom",po->nomSalle());
-            xmlWriter.writeAttribute("capacite",po->capacite());
-            xmlWriter.writeEndElement();
-
-
-            xmlWriter.writeStartElement("Debut");
-            xmlWriter.writeAttribute("x",QString::number(po->depart().x()));
-            xmlWriter.writeAttribute("y",QString::number(po->depart().y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeStartElement("Fin");
-            xmlWriter.writeAttribute("x",QString::number(po->fin().x()));
-            xmlWriter.writeAttribute("y",QString::number(po->fin().y()));
-            xmlWriter.writeEndElement();
-            xmlWriter.writeEndElement();
-
-
-            break;
-
-
-        default:
-            break;
         }
 
+        xmlWriter.writeEndElement();
+        xmlWriter.writeEndDocument();
+        file.close();
 
-    }
-
-
-    xmlWriter.writeEndElement();
-    xmlWriter.writeEndDocument();
-    file.close();
 }
-
+}
