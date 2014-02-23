@@ -195,7 +195,7 @@ void MainWindow::itemSelectionChanged(QGraphicsItem *item)
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Locate Univ Nantes"),
-                       tr("Cette application vous permet de construire les plans des batiments de l'Université de Nantes"));
+                      QString::fromUtf8("Bienvenue sur notre application ! \n Elle vous permet de construire les plans des batiments de l'Université de Nantes. \n Dans cette interface vous allez pourvoir créer chaque etage et chaque batiment. Il est conseillé de commencer par la création du batiment."));
 }
 //! [20]
 void MainWindow::ouvrirBatiment(){
@@ -348,6 +348,12 @@ void MainWindow::createMenus()
     menuAffichage = menuBar()->addMenu("&Affichage");
 
     menuAffichage->addAction(actionVueEnsemble);
+
+    aboutMenu = menuBar()->addMenu(tr("&Aide"));
+    aboutMenu->addAction(aboutAction);
+
+
+
 }
 //! [24]
 
