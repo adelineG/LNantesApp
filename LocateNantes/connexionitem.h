@@ -9,11 +9,15 @@
 class ConnexionItem : public QGraphicsPixmapItem
 {
 public:
+    enum { Type = UserType + 6 };
+
     ConnexionItem(DiagramScene *ds);
     void setConnect(QString a){
             connect=a;
     }
     bool exist(){return true;}
+
+    int type() const { return Type; }
 
 private:
     DiagramScene* parent;

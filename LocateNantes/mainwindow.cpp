@@ -87,15 +87,6 @@ MainWindow::MainWindow()
 //! [3]
 void MainWindow::deleteItem()
 {
-    foreach (QGraphicsItem *item, scene->selectedItems()) {
-        if (item->type() == Arrow::Type) {
-            scene->removeItem(item);
-            Arrow *arrow = qgraphicsitem_cast<Arrow *>(item);
-            arrow->startItem()->removeArrow(arrow);
-            arrow->endItem()->removeArrow(arrow);
-            delete item;
-        }
-    }
 
     foreach (QGraphicsItem *item, scene->selectedItems()) {
         if (item->type() == DiagramItem::Type) {
@@ -289,9 +280,9 @@ void MainWindow::createActions()
     actionEscalier = new QAction("&Escalier", this);
     connect(actionEscalier,SIGNAL(triggered()),this,SLOT(ouvrirEscalier()));
     actionAscenseur = new QAction("&Ascenseur", this);
-     connect(actionAscenseur,SIGNAL(triggered()),this,SLOT(ouvrirAscenseur()));
+    connect(actionAscenseur,SIGNAL(triggered()),this,SLOT(ouvrirAscenseur()));
     actionConnexion = new QAction("&Connexion", this);
-     connect(actionConnexion,SIGNAL(triggered()),this,SLOT(ouvrirConnexion()));
+    connect(actionConnexion,SIGNAL(triggered()),this,SLOT(ouvrirConnexion()));
 
     actionEtage = new QAction("&Etage", this);
     connect(actionEtage, SIGNAL(triggered()),this, SLOT(ouvrirEtage()));
@@ -352,7 +343,7 @@ void MainWindow::createMenus()
     menuEdition = menuBar()->addMenu("&Edition");
     menuBatiment = menuEdition->addMenu("&Batiment");
     menuBatiment->addAction(actionNouveauBatiment);
-   // menuBatiment->addAction(actionChoisirBatiment);
+    // menuBatiment->addAction(actionChoisirBatiment);
     menuConstruction = menuEdition->addMenu("&Construction");
     menuConstruction->addAction(actionPorte);
     menuConstruction->addAction(actionCloison);
@@ -414,4 +405,21 @@ void MainWindow::sauvegardePlan(){
     parserXML *parse = new parserXML(this);
     parse->sauvegarderXML(fichier);
     //exporter au format png
+}
+
+
+//si c est le meme batiment 1
+// si c est un autre 0
+void MainWindow::changerVue(int bat){
+    if(bat == 0){
+       // view->centerOn(QPointF(10,0));
+        //view->translate(view->pos().x()+10000,view->pos().y());
+        view->update();
+        qDebug("trtrtrtrtr");
+
+    }
+    else {
+        view->translate(view->pos().x(),view->pos().y()+10000);
+    }
+
 }

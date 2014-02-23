@@ -9,9 +9,14 @@
 class EscalierItem : public QGraphicsPixmapItem
 {
 public:
+
+     enum { Type = UserType + 5 };
+
     EscalierItem(DiagramScene *ds);
     void setEtage(QString et){listeEtage.append(et);}
     QPointF position;
+
+      int type() const { return Type; }
 
 private:
     DiagramScene *parent;

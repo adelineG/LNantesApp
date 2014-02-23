@@ -15,8 +15,10 @@
 #include "cloisonitem.h"
 #include "fenetreporte.h"
 #include "labelitem.h"
+#include "mainwindow.h"
 #include <QPainter>
-#include <QList>
+#include <QGraphicsItemGroup>
+
 
 static const int GRID_STEP = 30;
 
@@ -27,14 +29,17 @@ inline qreal round(qreal val, int step) {
 }
 
 //! [0]
-DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
-    : QGraphicsScene(parent)
+DiagramScene::DiagramScene(QMenu *itemMenu, MainWindow *mw)
+    : QGraphicsScene(mw)
 {
     myItemMenu = itemMenu;
     myMode = MoveItem;
     myItemType = DiagramItem::Step;
     line = 0;
     textItem = 0;
+    parent = mw;
+
+
 }
 //! [0]
 
@@ -83,12 +88,17 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
     case AddBatiment:
     {
+        parent->changerVue(0);
+        parent->update();
         bat->setDepart(startPoint);
         bat->setFin(mouseEvent->scenePos());
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
-        listBatiment.push_front(bat);
-        addItem(bat);
+
+        monGroupe = new QGraphicsItemGroup(NULL, this);
+        monGroupe->addToGroup(bat);
+
+
     }
         break;
     case AddEscalier:
@@ -99,8 +109,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         escalier->position=mouseEvent->scenePos();
         EscalierFenetre *formulaire = new EscalierFenetre(this);
         formulaire->show();
-        listeEscalier.push_front(escalier);
-        addItem(escalier);
+
+        monGroupe->addToGroup(escalier);
     }
         break;
 
@@ -110,8 +120,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         ascenseur->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
         ascenseur->setPos(mouseEvent->scenePos());
         ascenseur->position=mouseEvent->scenePos();
-        listeAscenseur.push_front(ascenseur);
-        addItem(ascenseur);
+
+        monGroupe->addToGroup(ascenseur);
     }
         break ;
 
@@ -123,8 +133,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         FenetreConnexion *formulaire = new FenetreConnexion(this);
         formulaire->show();
-        listeConnexion.push_front(connexion);
-        addItem(connexion);
+
+        monGroupe->addToGroup(connexion);
     }
         break;
 
@@ -152,8 +162,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         coulI->setDepart(startPoint);
         coulI->setFin(mouseEvent->scenePos());
         coulI->setPos(startPoint);
-        listeCouloir.push_front(coulI);
-        addItem(coulI);
+
+        monGroupe->addToGroup(coulI);
     }
         break;
     case AddPorte:
@@ -191,9 +201,9 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         porteD->setPos(mouseEvent->scenePos());
         porteD->setDepart(startPoint);
         porteD->setFin(mouseEvent->scenePos());
-        listePorte.push_front(porteD);
-        addItem(porteG);
-        addItem(porteD);
+
+        monGroupe->addToGroup(porteG);
+        monGroupe->addToGroup(porteD);
     }
         break;
 
@@ -203,8 +213,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         cloison->setPos(startPoint);
-        listeCloison.push_front(cloison);
-        addItem(cloison);
+
+        monGroupe->addToGroup(cloison);
     }
         break;
 
@@ -218,7 +228,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 this, SLOT(editorLostFocus(DiagramTextItem*)));
         connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
                 this, SIGNAL(itemSelected(QGraphicsItem*)));
-        addItem(textItem);
+        monGroupe->addToGroup(textItem);
         textItem->setPos(mouseEvent->scenePos());
         emit textInserted(textItem);
         break;
@@ -237,6 +247,7 @@ void DiagramScene::ouvrirFenetrePopUp(){
        // bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         FenetreBat *formulaire = new FenetreBat(this);
         formulaire->show();
+
     }
 }
 
@@ -343,7 +354,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         FenetrePorte *fen = new FenetrePorte(this);
         fen->show();
         label->setPos(QPointF(mouseEvent->scenePos().x()+20,mouseEvent->scenePos().y()-20));
-        addItem(label);
+        monGroupe->addToGroup(label);
 
     }
 

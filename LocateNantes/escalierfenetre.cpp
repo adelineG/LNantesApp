@@ -13,16 +13,16 @@
 EscalierFenetre::EscalierFenetre(DiagramScene *ds)
 {
     parent=ds;
-    QString name;
+    QString name = "";
     actifNouveau= false;
-    if(parent->listBatiment.isEmpty()){
+    /*if(parent->listBatiment.isEmpty()){
         name = "";
     }
     else {
         name= parent->listBatiment.front()->nom();
         name += " etage ";
         name += parent->listBatiment.front()->etage();
-    }
+    }*/
 
 
     nom = new QLineEdit;

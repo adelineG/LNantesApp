@@ -8,8 +8,13 @@
 class AscenseurItem : public QGraphicsPixmapItem
 {
 public:
+
+     enum { Type = UserType + 2};
+
     AscenseurItem(DiagramScene *ds);
     QPointF position;
+
+    int type() const{ return Type;}
 
 private:
     DiagramScene *parent;

@@ -50,7 +50,7 @@
 #include "labelitem.h"
 #include "connexionitem.h"
 #include "escalierfenetre.h"
-#include <QList>
+
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -69,6 +69,7 @@ class ConnexionItem;
 class AscenseurItem;
 class CloisonItem;
 class LabelItem;
+class QGraphicsItemGroup;
 QT_END_NAMESPACE
 
 
@@ -81,7 +82,7 @@ class DiagramScene : public QGraphicsScene
 public:
     enum Mode { InsertItem, InsertLine, InsertText, MoveItem, AddBatiment, AddCouloir , AddPorte, AddEscalier, AddAscenseur, AddConnexion, AddCloison};
     QString nom;
-    DiagramScene(QMenu *itemMenu , QObject *parent = 0);
+    DiagramScene(QMenu *itemMenu , MainWindow *mw = 0);
     LabelItem* label;
     BatimentItem *bat;
     CouloirItem *coulS;
@@ -92,14 +93,7 @@ public:
     AscenseurItem* ascenseur;
     ConnexionItem* connexion;
     CloisonItem* cloison;
-    QList <BatimentItem*> listBatiment;
-    QList <CouloirItem*> listeCouloir;
-    QList <PorteItem*> listePorte;
-    QList <EscalierItem*> listeEscalier;
-    QList <ConnexionItem*> listeConnexion;
-    QList <AscenseurItem*> listeAscenseur;
-    QList <CloisonItem*> listeCloison;
-    QList <LabelItem*> listeLabel;
+    QGraphicsItemGroup *monGroupe;
 
     void ouvrirFenetrePopUp();
 
@@ -131,11 +125,13 @@ protected:
 
 private:
     bool isItemChange(int type);
+    bool leftButtonDown;
 
+    MainWindow *parent;
     DiagramItem::DiagramType myItemType;
     QMenu *myItemMenu;
     Mode myMode;
-    bool leftButtonDown;
+
     QPointF startPoint;
     QGraphicsLineItem *line;
     DiagramTextItem *textItem;

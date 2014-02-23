@@ -9,6 +9,9 @@ class LabelItem : public QGraphicsSimpleTextItem
 {
 public:
     LabelItem(DiagramScene *ds);
+    enum { Type = UserType + 7 };
+
+    int type() const { return Type; }
 
 private:
     DiagramScene *parent;

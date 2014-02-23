@@ -84,9 +84,9 @@ void FenetreConnexion::sauvegarder()
         return; // Arrêt de la méthode
     }
 
-    if(!(nom->text().isEmpty()) && !(parent->listBatiment.isEmpty())){
+    //if(!(nom->text().isEmpty()) && !(parent->listBatiment.isEmpty())){
         parent->connexion->setConnect(nom->text());
-    }
+    //}
     // else parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text()); // ya un souci ici !!!!!
 
     this->close();

@@ -78,6 +78,9 @@ public:
    DiagramScene *scene;
    PlanModel *plan;
 
+public slots :
+   void changerVue(int);
+
 private slots:
     //void backgroundButtonGroupClicked(QAbstractButton *button);
     void deleteItem();
@@ -97,7 +100,8 @@ private slots:
     void ouvrirAscenseur();
     void ouvrirCloison();
     void ouvrirPorte();
-     void sauvegardePlan();
+    void sauvegardePlan();
+
 
 private:
     void createToolBox();

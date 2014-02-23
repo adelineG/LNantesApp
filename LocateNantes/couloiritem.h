@@ -9,12 +9,17 @@ class DiagramScene;
 class CouloirItem : public QGraphicsLineItem
 {
 public:
+
+     enum { Type = UserType + 4 };
+
     CouloirItem(DiagramScene*);
 
     QPointF depart() const { return _depart;}
     QPointF fin() const { return _fin;}
     void setDepart(QPointF p){_depart=p;}
     void setFin(QPointF p){_fin=p;}
+
+     int type() const { return Type; }
 
 private:
     DiagramScene *parent;

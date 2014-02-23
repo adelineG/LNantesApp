@@ -8,9 +8,14 @@
 class CloisonItem : public QGraphicsLineItem
 {
 public:
+
+     enum { Type = UserType + 3 };
+
     CloisonItem(DiagramScene *ds);
     QPointF depart() const { return _depart;}
     QPointF fin() const { return _fin;}
+
+     int type() const { return Type; }
 
 private:
     DiagramScene *parent;

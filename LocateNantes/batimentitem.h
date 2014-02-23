@@ -9,9 +9,12 @@ class DiagramScene;
 
 class BatimentItem : public QGraphicsRectItem
 {
-    enum { Type = UserType + 1 };
+
 
 public:
+
+     enum { Type = UserType + 1 };
+
     BatimentItem(DiagramScene*);
    // void paint(QPainter& ,const QPointF &, const QPointF &)const ;
     void setNom(QString n) {_nom=n;}
@@ -24,6 +27,7 @@ public:
     QPointF fin() const { return _fin;}
     void setDepart(QPointF p){_depart=p;}
     void setFin(QPointF p){_fin=p;}
+
 
 
 protected:
