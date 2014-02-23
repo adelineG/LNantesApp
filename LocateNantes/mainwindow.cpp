@@ -226,7 +226,6 @@ void MainWindow::ouvrirCloison(){
 
 
 void MainWindow::ouvrirAscenseur(){
-
     scene->setMode(DiagramScene::AddAscenseur);
 }
 
@@ -263,6 +262,9 @@ void MainWindow::createActions()
     actionSauvegarder = new QAction("&Sauvegarder", this);
     actionSauvegarder->setShortcut(tr("Ctrl+S"));
     connect(actionSauvegarder,SIGNAL(triggered()),this,SLOT(sauvegardePlan()));
+
+    actionCouloir = new QAction("&Couloir", this);
+    connect(actionCouloir,SIGNAL(triggered()),this,SLOT(ouvrirCouloir()));
     actionPorte = new QAction("&Porte", this);
     connect(actionPorte,SIGNAL(triggered()),this,SLOT(ouvrirPorte()));
 
@@ -334,6 +336,7 @@ void MainWindow::createMenus()
     menuBatiment->addAction(actionNouveauBatiment);
     // menuBatiment->addAction(actionChoisirBatiment);
     menuConstruction = menuEdition->addMenu("&Construction");
+    menuConstruction->addAction(actionCouloir);
     menuConstruction->addAction(actionPorte);
     menuConstruction->addAction(actionCloison);
     menuConstruction->addAction(actionEscalier);
@@ -387,14 +390,19 @@ void MainWindow::createToolbars()
     //! [27]
 }
 //! [27]
-
 void MainWindow::sauvegardePlan(){
 
-    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
+
+    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.xpm *.jpg);;XML files (*.xml)");
+
     parserXML *parse = new parserXML(this);
+
     parse->sauvegarderXML(fichier);
+
     //exporter au format png
+
 }
+
 
 
 //si c est le meme batiment 1

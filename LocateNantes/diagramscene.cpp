@@ -106,6 +106,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         if(monGroupe==NULL )
         {
+            myMode == MoveItem;
             break;
         }
         escalier = new EscalierItem(this);
@@ -124,8 +125,10 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(monGroupe == NULL)
         {
 
-            break;
+            myMode == MoveItem;
+            break ;
         }
+
         ascenseur = new AscenseurItem(this);
         ascenseur->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
         ascenseur->setPos(mouseEvent->scenePos());
@@ -140,7 +143,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(monGroupe == NULL)
         {
 
-            break;
+            myMode == MoveItem;
+            break ;
         }
         connexion = new ConnexionItem(this);
         connexion->setPixmap(QPixmap(":/images/Sortie.png").scaled(30,30));
@@ -158,8 +162,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         if(monGroupe == NULL)
         {
-
-            break;
+            myMode == MoveItem;
+            break ;
         }
         QPointF offx = startPoint;
         QPointF offy = mouseEvent->scenePos();
@@ -191,7 +195,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(monGroupe == NULL)
         {
 
-            break;
+            myMode == MoveItem;
         }
         QPointF offxh = startPoint;
         QPointF offxv = startPoint;
@@ -377,8 +381,6 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     if(myMode == AddCloison){
         if(monGroupe!=NULL){
-
-
             cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
             cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
             cloison->setPos(startPoint);
@@ -391,7 +393,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
 
-    if(myMode==AddPorte){
+    if(myMode==AddPorte && monGroupe!=NULL){
 
         label= new LabelItem(this);
         FenetrePorte *fen = new FenetrePorte(this);

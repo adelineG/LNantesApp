@@ -133,6 +133,7 @@ private:
     QAction *actionCharger;
     QAction *actionSauvegarder;
 
+    QAction *actionCouloir;
     QAction *actionPorte;
     QAction *actionCloison;
     QAction *actionEscalier;
