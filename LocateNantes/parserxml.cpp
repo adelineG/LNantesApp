@@ -33,7 +33,7 @@ void parserXML::sauvegarderXML(QString fileName){
     qDebug()<< parent->plan->listScene;
 
     /*foreach (scene, parent->plan->listScene) {
-        /*if(!(scene->listBatiment.isEmpty())){
+        if(!(scene->listBatiment.isEmpty())){
 
             foreach (bat, scene->listBatiment) {
 
