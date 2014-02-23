@@ -16,6 +16,7 @@
 #include "fenetreporte.h"
 #include "labelitem.h"
 #include "mainwindow.h"
+#include "QMessageBox"
 #include <QPainter>
 #include <QGraphicsItemGroup>
 
@@ -103,6 +104,11 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
     case AddEscalier:
     {
+        if(monGroupe==NULL )
+        {
+
+            break;
+        }
         escalier = new EscalierItem(this);
         escalier->setPixmap(QPixmap(":/images/escalier.png").scaled(30,30));
         escalier->setPos(mouseEvent->scenePos());
@@ -116,6 +122,11 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     case AddAscenseur:
     {
+        if(monGroupe == NULL)
+        {
+
+            break;
+        }
         ascenseur = new AscenseurItem(this);
         ascenseur->setPixmap(QPixmap(":/images/ascenseur.png").scaled(30,30));
         ascenseur->setPos(mouseEvent->scenePos());
@@ -127,19 +138,30 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     case AddConnexion:
     {
+        if(monGroupe == NULL)
+        {
+
+            break;
+        }
         connexion = new ConnexionItem(this);
         connexion->setPixmap(QPixmap(":/images/Sortie.png").scaled(30,30));
         connexion->setPos(mouseEvent->scenePos());
 
         FenetreConnexion *formulaire = new FenetreConnexion(this);
+        qDebug("merde");
         formulaire->show();
-
-        monGroupe->addToGroup(connexion);
+         qDebug("merde");
+         monGroupe->addToGroup(connexion);
     }
         break;
 
     case AddCouloir:
     {
+        if(monGroupe == NULL)
+        {
+
+            break;
+        }
         QPointF offx = startPoint;
         QPointF offy = mouseEvent->scenePos();
         int testx = abs(offy.x()-offx.x());
@@ -168,6 +190,11 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
     case AddPorte:
     {
+        if(monGroupe == NULL)
+        {
+
+            break;
+        }
         QPointF offxh = startPoint;
         QPointF offxv = startPoint;
         QPointF offyv = mouseEvent->scenePos();
@@ -209,6 +236,11 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     case AddCloison:
     {
+        if(monGroupe == NULL)
+        {
+
+            break;
+        }
         cloison = new CloisonItem(this);
         cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
         cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));

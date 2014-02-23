@@ -58,7 +58,7 @@
 MainWindow::MainWindow()
 {
     scene = new DiagramScene(itemMenu, this);
-    scene->setSceneRect(QRectF(0, 0, 5000, 5000));
+    scene->setSceneRect(QRectF(0, 0, 50000, 50000));
     connect(scene, SIGNAL(itemInserted(DiagramItem*)),this, SLOT(itemInserted(DiagramItem*)));
     connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)), this, SLOT(textInserted(QGraphicsTextItem*)));
     connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),this, SLOT(itemSelectionChanged(QGraphicsItem*)));
@@ -71,7 +71,6 @@ MainWindow::MainWindow()
 
     /**************************** Grid ********************************************/
     view = new QGraphicsView(scene);
-    plan = new PlanModel(this);
 
     setCentralWidget(view);
 
@@ -400,7 +399,7 @@ void MainWindow::createToolbars()
 //! [27]
 
 void MainWindow::sauvegardePlan(){
-    plan->setListScene(scene);
+
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
     parserXML *parse = new parserXML(this);
     parse->sauvegarderXML(fichier);
@@ -412,14 +411,13 @@ void MainWindow::sauvegardePlan(){
 // si c est un autre 0
 void MainWindow::changerVue(int bat){
     if(bat == 0){
-       // view->centerOn(QPointF(10,0));
-        //view->translate(view->pos().x()+10000,view->pos().y());
-        view->update();
+       // view->setSceneRect(QRectF(1000,1000,5000,5000));
+      //  view->update();
         qDebug("trtrtrtrtr");
 
     }
     else {
-        view->translate(view->pos().x(),view->pos().y()+10000);
+       // view->translate(view->pos().x(),view->pos().y()+10000);
     }
 
 }

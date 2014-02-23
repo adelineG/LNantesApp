@@ -32,10 +32,8 @@ FenetreConnexion::FenetreConnexion(DiagramScene *ds)
     widgetGadget->setLayout(definitionLayout);
 
     listeExistant = new QComboBox();
-    //if (myBatiment){
-    listeExistant->addItem("Batiment1");
-    listeExistant->addItem("Batiment26");
-    // }
+    listeExistant->addItems(parent->listBat);
+
 
 
     /**************************test caché *******************************/
@@ -85,7 +83,7 @@ void FenetreConnexion::sauvegarder()
     }
 
     //if(!(nom->text().isEmpty()) && !(parent->listBatiment.isEmpty())){
-        parent->connexion->setConnect(nom->text());
+    parent->connexion->setConnect(nom->text());
     //}
     // else parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text()); // ya un souci ici !!!!!
 

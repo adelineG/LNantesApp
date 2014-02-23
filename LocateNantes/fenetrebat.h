@@ -16,6 +16,10 @@ public:
 
 public slots:
     void sauvegarder();
+    void demandeNomBat();
+    void choixNomBat();
+    void demandeNomEtage();
+    void choixNomEtage();
 
 private:
     DiagramScene *parent;
@@ -23,9 +27,19 @@ private:
     QLineEdit *nom;
     QLineEdit *etage;
 
-
+    QRadioButton *radio1;
+    QRadioButton *radio2;
+    QRadioButton *radio3;
+    QRadioButton *radio4;
+    bool actifNouveauBat;
+    bool actifNouveauEtage;
     QPushButton *valider;
     QPushButton *annuler;
+    QWidget *widgetGadgetBat;
+    QWidget *widgetGadgetEtage;
+    QComboBox *sceneScaleComboBat;
+    QComboBox *sceneScaleComboEtage;
+    QGroupBox *groupDefinition;
 
 };
 

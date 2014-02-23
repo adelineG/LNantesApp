@@ -94,7 +94,8 @@ public:
     ConnexionItem* connexion;
     CloisonItem* cloison;
     QGraphicsItemGroup *monGroupe;
-
+    QList <QString> listBat;
+    QList <QString> listEtage;
     void ouvrirFenetrePopUp();
 
 
