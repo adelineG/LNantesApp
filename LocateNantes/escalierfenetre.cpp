@@ -13,16 +13,12 @@
 EscalierFenetre::EscalierFenetre(DiagramScene *ds)
 {
     parent=ds;
-    QString name = "";
+
     actifNouveau= false;
-    /*if(parent->listBatiment.isEmpty()){
-        name = "";
-    }
-    else {
-        name= parent->listBatiment.front()->nom();
-        name += " etage ";
-        name += parent->listBatiment.front()->etage();
-    }*/
+    QString name = "Batiment ";
+    name += parent->bat->nom();
+    name += " etage ";
+    name += parent->bat->etage();
 
 
     nom = new QLineEdit;
@@ -46,22 +42,19 @@ EscalierFenetre::EscalierFenetre(DiagramScene *ds)
     widgetGadget=new QWidget();
     widgetGadget->setLayout(definitionLayout);
 
-    /*
+
     listeExistant = new QComboBox();
-    //if (myEscalier){
-        listeExistant->addItem("Escalier1");
-        listeExistant->addItem("Escalier3");
-   // }*/
+    listeExistant->addItems(parent->listEtage);
 
 
     /**************************test caché *******************************/
     vbox->addWidget(radio1);
     vbox->addWidget(widgetGadget);
-   // vbox->addWidget(radio2);
-  //  vbox->addWidget(listeExistant);
+    vbox->addWidget(radio2);
+    vbox->addWidget(listeExistant);
 
     widgetGadget->hide();
-  //  listeExistant->hide();
+    listeExistant->hide();
     vbox->addStretch(0);
 
     // Layout : boutons du bas (générer, quitter...)
@@ -94,28 +87,34 @@ EscalierFenetre::EscalierFenetre(DiagramScene *ds)
 void EscalierFenetre::sauvegarder()
 {
     // On vérifie que le nom de la classe n'est pas vide, sinon on arrête
-        if (nom->text().isEmpty())
-        {
-            QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de l'escalier pour valider");
-            return; // Arrêt de la méthode
-        }
+    if (nom->text().isEmpty() && !radio2->isChecked())
+    {
+        QMessageBox::critical(this, "Erreur", "Veuillez entrer le nom de l'escalier pour valider");
+        return; // Arrêt de la méthode
+    }
 
-        if(!nom->text().isEmpty())parent->escalier->setEtage(nom->text());
-        this->close();
+    if(!nom->text().isEmpty()){
+        parent->escalier->setEtage(nom->text());
+    }
+    else
+    {
+        parent->escalier->setEtage(listeExistant->currentText());
+    }
+    this->close();
 }
 
 void EscalierFenetre::demandeNom(){
 
-      // listeExistant->hide();
-       widgetGadget->show();
-       this->update();
+    listeExistant->hide();
+    widgetGadget->show();
+    this->update();
 
 }
 
 void EscalierFenetre::choixNom(){
 
-     //  listeExistant->show();
-       widgetGadget->hide();
-       this->update();
+    listeExistant->show();
+    widgetGadget->hide();
+    this->update();
 }
 

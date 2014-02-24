@@ -107,12 +107,27 @@ void FenetreBat::sauvegarder()
         return; // Arrêt de la méthode
     }
 
-    parent->bat->setNom(nom->text());
-    parent->listBat.append(nom->text());
-    parent->bat->setEtage(etage->text());
-    parent->listEtage.append(etage->text());
+    if ( nom->text()!= ""){
+        parent->bat->setNom(nom->text());
+         parent->listBat.append(nom->text());
+    }
+    else
+    {
+        parent->bat->setNom(sceneScaleComboBat->currentText());
+        parent->listBat.append(sceneScaleComboBat->currentText());
+    }
+    if (etage->text()!= ""){
+        parent->bat->setEtage(etage->text());
+        parent->listEtage.append(etage->text());
+    }
+    else {
+        parent->bat->setEtage(sceneScaleComboEtage->currentText());
+        parent->listEtage.append(sceneScaleComboEtage->currentText());
+    }
 
-    if(!etage->text().isEmpty()) parent->bat->setEtage(etage->text());
+
+
+
     this->close();
 }
 

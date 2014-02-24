@@ -309,7 +309,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         bat->setDepart(startPoint);
         bat->setFin(mouseEvent->scenePos());
-        bat->setPen(QPen(Qt::black,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+        bat->setPen(QPen(Qt::blue,3,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
         bat->setRect(QRectF(QPointF(0,0),mouseEvent->scenePos()-startPoint).normalized());
         bat->setPos(startPoint);
 
@@ -338,7 +338,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
             coulI->setDepart(startPoint);
             coulI->setFin(mouseEvent->scenePos());
             coulI->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-            coulI->setPen(QPen(Qt::gray,20,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+            coulI->setPen(QPen(Qt::gray,25,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
             coulI->setPos(startPoint);
         }
     }
@@ -382,7 +382,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if(myMode == AddCloison){
         if(monGroupe!=NULL){
             cloison->setLine(QLineF(QPointF(0,0),mouseEvent->scenePos()-startPoint));
-            cloison->setPen(QPen(Qt::black,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
+            cloison->setPen(QPen(Qt::gray,5,Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
             cloison->setPos(startPoint);
         }
     }
@@ -398,7 +398,8 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         label= new LabelItem(this);
         FenetrePorte *fen = new FenetrePorte(this);
         fen->show();
-        label->setBrush(Qt::blue);
+        label->setBrush(Qt::red);
+        label->setFont(QFont("Times", 13, QFont::Bold));
         label->setPos(QPointF(mouseEvent->scenePos().x()+20,mouseEvent->scenePos().y()-20));
         monGroupe->addToGroup(label);
 

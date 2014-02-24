@@ -81,7 +81,7 @@ public:
 
 
 private slots:
-    //void backgroundButtonGroupClicked(QAbstractButton *button);
+
     void deleteItem();
     void pointerGroupClicked(int id);
     void bringToFront();
@@ -100,6 +100,7 @@ private slots:
     void ouvrirCloison();
     void ouvrirPorte();
     void sauvegardePlan();
+    void nouveauPlan();
 
 
 private:
@@ -114,9 +115,7 @@ private:
     QIcon createColorToolButtonIcon(const QString &image, QColor color);
     QIcon createColorIcon(QColor color);
 
-
     QGraphicsView *view;
-
 
     QAction *actionQuitter;
     QAction *addAction;

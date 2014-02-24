@@ -12,8 +12,12 @@
 FenetreConnexion::FenetreConnexion(DiagramScene *ds)
 {
 
-    QString name="Batiment 1 Etage 2";
+
     parent=ds;
+    QString name = "Batiment ";
+    name += parent->bat->nom();
+    name += " etage ";
+    name += parent->bat->etage();
     nom = new QLineEdit;
     etage = new QLineEdit;
 
@@ -82,11 +86,12 @@ void FenetreConnexion::sauvegarder()
         return; // Arrêt de la méthode
     }
 
-    //if(!(nom->text().isEmpty()) && !(parent->listBatiment.isEmpty())){
-    parent->connexion->setConnect(nom->text());
-    //}
-    // else parent->connexion->setConnect(parent->listBatiment.last()->nom(),nom->text()); // ya un souci ici !!!!!
-
+    if(!(nom->text().isEmpty())){
+        parent->connexion->setConnect(nom->text());
+    }
+     else {
+        parent->connexion->setConnect(listeExistant->currentText());
+    }
     this->close();
 }
 
